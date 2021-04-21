@@ -210,8 +210,8 @@ p {
   background-color: #fff;
   display: flex;
   justify-content: center;
-  background-color: #fff;
-  align-items:center;
+  background-color: #eee;
+  align-items: center;
 }
 
 .player > audio {
@@ -221,10 +221,16 @@ p {
 }
 
 audio::-webkit-media-controls-play-button,
-     audio::-webkit-media-controls-panel {
-     background-color: #fff;
-     color: #000;
-     }
+audio::-webkit-media-controls-panel {
+  background-color: #eee;
+  color: #000;
+}
+
+.player-info {
+  margin-left: 10px;
+  font-size: 12px;
+  line-height: 16px;
+}
 
 .player-img {
   background-image: url("https://i1.sndcdn.com/artworks-voe0CibrOPXN3rnt-2xSpZA-t200x200.jpg");
