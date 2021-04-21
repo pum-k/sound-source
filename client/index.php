@@ -10,6 +10,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap"
       rel="stylesheet"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <!-- CSS only -->
     <title>SoundSource</title>
@@ -67,5 +69,23 @@
         <i style="color: #666;">Vu</i>
       </div>
     </div>
+    <div style="margin-bottom: 100px;">
+    </div>
+    <script type="text/javascript">
+        $('.song').hover(
+        (e)=>{
+         var a =  $(e.target).children(".song__play")
+
+          a.css("opacity","1");
+        },
+        (e)=>{
+         var a =  $(e.target).children(".song__play")
+
+          a.css("opacity","0");
+        }
+        
+        
+        )
+    </script>
   </body>
 </html>
