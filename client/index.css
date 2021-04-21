@@ -1,0 +1,234 @@
+body {
+  background-color: #f2f2f2;
+  height: 100%;
+  font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans,
+    Garuda, Verdana, Tahoma, sans-serif;
+  font-weight: 100;
+  box-sizing: border-box;
+}
+*,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.ctn-main {
+  max-width: 1240px;
+  margin: 0 auto;
+  background-color: white;
+  height: 100%;
+  padding-top: 1px;
+}
+
+.title {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 24px;
+}
+
+.song-body {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 35px;
+  padding-top: 0px;
+}
+
+.song-img {
+  width: 180px;
+  background-size: cover;
+  height: 180px;
+  background-image: url("https://i1.sndcdn.com/artworks-voe0CibrOPXN3rnt-2xSpZA-t200x200.jpg");
+  margin: 0;
+  margin: 30px 26px 5px 26px;
+  border: 1px solid #aaa;
+  transition: 0.3s;
+}
+
+.song-img:hover ~ .song-info {
+  transform: rotate(5deg);
+}
+
+.song-img:hover ~ .play {
+  transform: rotate(45deg);
+}
+
+.song-img:hover {
+  transform: rotate(5deg);
+}
+
+.song-info {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: normal;
+  width: 180px;
+  margin-left: 27px;
+  transition: 0.3s;
+}
+
+.form-search {
+  margin: 45px 187px;
+  display: flex;
+  align-items: center;
+}
+
+.form-search > form {
+  margin-right: 25px;
+  display: flex;
+}
+
+.search-icon {
+  background-image: #eee;
+  border: none;
+  padding-right: 15px;
+  font-size: 16px;
+  color: #999;
+}
+
+.btn-upload {
+  margin-left: 25px;
+}
+
+.form-search > form > input {
+  width: 600px;
+  height: 45px;
+  border: none;
+  background-color: #eee;
+  padding: 15px;
+  border-radius: 3px;
+}
+
+.form-search > form > input:focus {
+  outline: none;
+}
+
+.btn {
+  background-color: #fe9132;
+  border: none;
+  color: #fff;
+  border-radius: 3px;
+  height: 45px;
+  width: 170px;
+  padding: 13px 23px;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+.song {
+  position: relative;
+}
+
+.btn-outline {
+  border: 1.5px solid #fe9132;
+  color: #fff;
+  border-radius: 3px;
+  height: 45px;
+  width: 170px;
+  padding: 13px 23px;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: pointer;
+  background: none;
+}
+
+.header {
+  color: #fff;
+  height: 450px;
+  width: 100%;
+  background-image: url("./static/img/panel.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  align-items: center;
+  margin: 10px;
+  margin-top: 1px;
+}
+
+.nav-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.panel {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.panel > h2 {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.panel > button {
+  margin-top: 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-page {
+  background-color: #fe9132;
+  border: none;
+  color: #fff;
+  border-radius: 3px;
+  height: 45px;
+  width: 170px;
+  margin: 10px;
+  padding: 13px 23px;
+  font-size: 16px;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+.play {
+  font-size: 40px;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+  right: 41%;
+  z-index: 1;
+  opacity: 1;
+  transition: 0.3s;
+  display: none;
+}
+
+.player {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  align-items:center;
+}
+
+.player > audio {
+  background: none;
+  width: 800px;
+  height: 90%;
+}
+
+audio::-webkit-media-controls-play-button,
+     audio::-webkit-media-controls-panel {
+     background-color: #fff;
+     color: #000;
+     }
+
+.player-img {
+  background-image: url("https://i1.sndcdn.com/artworks-voe0CibrOPXN3rnt-2xSpZA-t200x200.jpg");
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+}
