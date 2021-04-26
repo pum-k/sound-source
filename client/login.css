@@ -1,0 +1,89 @@
+* h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(
+    to right,
+    #1c92d2,
+    #f2fcfe
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.ctn-login {
+  background-color: #f7f7f6;
+  height: auto;
+  width: 500px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+  margin-top: 100px;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.title {
+  margin-bottom: 30px;
+  font-size: 48px;
+}
+
+.ctn-new-account {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-login > input {
+  box-sizing: border-box;
+  width: 350px;
+  border: 0.5px solid #ccc;
+  border-radius: 10px;
+  height: 50px;
+  margin: 5px 0;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.form-login > input:focus {
+    border: 0.8px solid #fe9132;
+    outline: none;
+}
+.submit {
+  background-color: #fe9132;
+  color: #fff;
+  border: none !important;
+  margin: 20px !important;
+  cursor: pointer;
+}
+
+.question {
+    box-sizing: border-box;
+    width: 350px;
+    height: 50px;
+    border: 0.5px solid #ccc;
+    border-radius: 10px;
+    margin: 5px 0;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.question:focus {
+    border: 0.8px solid #fe9132;
+    outline: none;
+}

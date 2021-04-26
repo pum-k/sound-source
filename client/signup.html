@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+    <div class="ctn-login">
+        <h1 class="title">Sign up</h1>
+        <div class="ctn-new-account"><p style="margin-right: 5px;">Already have an account?</p><a href="./login.html">Sign in</a></div>
+        <form class="form-login" action="">
+            <input autocomplete="off" type="text" placeholder="Username" name="username"/>
+            <input type="newPassword" placeholder="New Password" name="newPassword"/>
+            <input type="password" placeholder="Re-Password" name="rePassword"/>
+            <select class="question" name="question" id="question">
+                <option value="">Verification Question</option>
+                <option value="fatherName">Your father's name?</option>
+                <option value="motherName">Your mother's name?</option>'
+                <option value="motherName">Your favorite pet?</option>
+                <option value="motherName">Your favorite book?</option>
+            </select>
+            <input type="text" placeholder="Your answer" name="answer"/>
+            <input class="submit" type="submit" />
+        </form>
+    </div>
+</body>
+</html>
