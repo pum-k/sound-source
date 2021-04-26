@@ -342,3 +342,8 @@ audio::-webkit-media-controls-panel {
   -webkit-animation-direction: alternate;
   animation-direction: alternate;
 }
+
+.btn > a {
+  text-decoration: none;
+  color: #fff;
+}
