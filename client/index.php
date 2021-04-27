@@ -46,26 +46,37 @@
     </div>
     <p class="title">Hear what’s trending for free in the SoundSource</p>
     <div class="song-body">
-      <button class="song">
-        <i class="fas fa-play play song__play"></i>
-        <div class="song-img"></div>
-        <p class="song-info">Buoc qua mua co don - toilavu</p>
-        <p class="song-info">artist name</p>
-      </button>
+      <!-- <form> -->
+        <button class="song" type="submit" >
+          <i class="fas fa-play play song__play"></i>
+          <div class="song-img" style="background-image: url(https://i1.sndcdn.com/avatars-PSUlFhUVy1gfu3Td-jXKnDw-t200x200.jpg);" ></div>
+          <p class="song-info">Chúng ta của hiện tại</p>
+          <p class="song-info">Sơn từng MTP </p>
+        
+          <!-- <input type="text" name="nhac" value = "1" hidden> -->
+        </button>
+        <?php
+        require './List_music.php';
+        ?>
+      <!-- </form> -->
     </div>
   </div>
   <div class="player">
-    <audio controls>
-      <source src="./static/audio/Rapitalove EP- Tay To - RPT MCK x RPT PhongKhin (Prod. by RPT PhongKhin) by Rapital.mp3" type="audio/ogg" />
+    <audio controls  class="song_audio" autoplay>
+      <source src="./static/audio/Rapitalove EP- Tay To - RPT MCK x RPT PhongKhin (Prod. by RPT PhongKhin) by Rapital.mp3" type="audio/mp3" />
+      <!-- <source id='2' src=" ./static/audio/SƠN TÙNG M-TP - CHÚNG TA CỦA HIỆN TẠI by Sơn Tùng M-TP Official - Free Listening on SoundCloud.mp3" type="audio/mp3"> -->
     </audio>
     <div class="player-img"></div>
     <div class="player-info">
-      <p>Buoc Qua Mua Co Don</p>
+      <p>Tay To </p>
       <i style="color: #666;">Vu</i>
     </div>
   </div>
   <div style="margin-bottom: 100px;">
   </div>
+  <?php
+
+  ?>
   <script type="text/javascript">
     $('.song').hover(
       (e) => {
@@ -74,10 +85,25 @@
       },
       (e) => {
         var a = $(e.target).children(".song__play")
-
         a.css("opacity", "0");
       }
     )
+      function myFunction(id){
+        var target = id.children[1];
+        var playerimage = document.getElementsByClassName('player-img')[0];
+        var playerinfo = document.getElementsByClassName('player-info')[0];
+        playerimage.style.backgroundImage = target.style.backgroundImage;
+        playerinfo.children[0].textContent = id.children[2].textContent;
+        playerinfo.children[1].textContent = id.children[3].textContent;
+     
+        var songaudio = document.getElementsByClassName('song_audio');
+        // console.log(songaudio);
+        document.getElementsByClassName('song_audio')[0].load();
+        songaudio[0].children[0].src = id.children[4].textContent;
+        // document.getElementsByClassName('song_audio').reload();
+        // songaudio[0].children[0].reload();
+      }
+
   </script>
 </body>
 
