@@ -39,7 +39,7 @@
         <input type="search" placeholder="Search for song" class="input-search" onkeyup="findSong(this.value)" />
         <div class="dropdown-search">
           <button class="getInfo">Search for: <span class="search_content"></span> </button>
-          <button><i class="fas fa-search" style="margin-right: 15px;"></i>Example</button>
+
         </div>
         <button type="submit" class="search-icon">
           <i class="fas fa-search"></i>
@@ -100,20 +100,25 @@
         document.getElementsByClassName('getInfo')[0].children[0].innerHTML = value;
       }
       if (value.length == 0) {
-        document.getElementById("txtHint").innerHTML = "";
+        // document.getElementById("txtHint").innerHTML = "";
+        var Option = document.getElementsByClassName("Option");
+        buttonDropdown.innerHTML = '';
+        buttonDropdown.innerHTML = '<button class="getInfo">Search for: <span class="search_content"></span> </button>';
         return;
       } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = async function() {
           if (this.readyState == 4 && this.status == 200) {
             let value = JSON.parse(this.responseText);
+            let buttonDropdown = document.getElementsByClassName('dropdown-search')[0];
             if (value.length > 0) {
               var Option = document.getElementsByClassName("Option");
-              // console.log(Option);
-              while (Option.lastElementChild) {
-                Option.removeChild(myNode.lastElementChild);
+              console.log(Option);
+              if (Option.length > 0) {
+                // console.log(buttonDropdown.firstChild);
+                buttonDropdown.removeChild(buttonDropdown.lastChild);
+      
               }
-              let buttonDropdown = document.getElementsByClassName('dropdown-search')[0];
               let button = document.createElement('button')
               button.className = "Option";
               button.innerHTML = " <i class='fas fa-search' style='margin-right: 15px;'>  </i> " + value;
