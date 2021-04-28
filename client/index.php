@@ -36,7 +36,7 @@
     </div>
     <div class="form-search">
       <form >
-        <input type="search" placeholder="Search for song" />
+        <input type="search" placeholder="Search for song" onkeyup="findSong(this.value)"/>
         <button type="submit" class="search-icon">
           <i class="fas fa-search"></i>
         </button>
@@ -93,20 +93,19 @@
     }
 
     function findSong(value) {
-      if (str.length == 0) {
+      console.log(value);
+      if (value.length == 0) {
         document.getElementById("txtHint").innerHTML = "";
         return;
       } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-            // document.getElementById("txtHint").innerHTML = this.responseText;
             let value = JSON.parse(this.responseText);
             console.log(value);
-
           }
         };
-        xmlhttp.open("GET", "gethint.php?q=" + str, true);
+        xmlhttp.open("GET", "gethint.php?value=" + value, true);
         xmlhttp.send();
       }
     }
