@@ -38,7 +38,7 @@ p {
   width: 180px;
   background-size: cover;
   height: 180px;
-  background-image: url("https://i1.sndcdn.com/artworks-voe0CibrOPXN3rnt-2xSpZA-t200x200.jpg");
+
   margin: 0;
   margin: 30px 26px 5px 26px;
   border: 1px solid #aaa;
@@ -71,6 +71,7 @@ p {
   margin: 45px 187px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .form-search > form {
@@ -121,8 +122,6 @@ p {
   border: none;
   background: none;
 }
-
-
 
 .btn-outline {
   border: 1.5px solid #fff;
@@ -222,7 +221,6 @@ p {
   transition: 0.3s;
   display: none;
   pointer-events: none;
-
 }
 
 .player {
@@ -346,4 +344,36 @@ audio::-webkit-media-controls-panel {
 .btn > a {
   text-decoration: none;
   color: #fff;
+}
+
+.dropdown-search {
+  border-top: 1px solid;
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: #111111;
+
+  width: 630px;
+  top: 45px;
+  box-sizing: border-box;
+}
+
+.dropdown-search > button {
+  color: #999;
+  min-width: 630px !important;
+  padding-left: 20px;
+  text-align: left;
+  background-color: transparent;
+  height: 45px;
+  border: none;
+  cursor: pointer;
+}
+
+.input-search:focus ~ .dropdown-search {
+  display: block;
+}
+
+.dropdown-search > button:hover {
+  background-color: #262626;
+  color: #ddd;
 }
