@@ -36,7 +36,11 @@
     </div>
     <div class="form-search">
       <form action="">
-        <input type="search" placeholder="Search for song" />
+        <input type="search" placeholder="Search for song" class="input-search"/>
+        <div class="dropdown-search">
+          <button>Search for: abxas</button>
+          <button><i class="fas fa-search" style="margin-right: 15px;"></i>Example</button>
+        </div>
         <button type="submit" class="search-icon">
           <i class="fas fa-search"></i>
         </button>
