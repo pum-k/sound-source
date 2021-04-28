@@ -35,10 +35,10 @@
       </div>
     </div>
     <div class="form-search">
-      <form action="">
-        <input type="search" placeholder="Search for song" class="input-search"/>
+      <form>
+        <input type="search" placeholder="Search for song" class="input-search" onkeyup="findSong(this.value)" />
         <div class="dropdown-search">
-          <button>Search for: abxas</button>
+          <button class="getInfo">Search for: <span class="search_content"></span> </button>
           <button><i class="fas fa-search" style="margin-right: 15px;"></i>Example</button>
         </div>
         <button type="submit" class="search-icon">
@@ -50,25 +50,14 @@
     </div>
     <p class="title">Hear what’s trending for free in the SoundSource</p>
     <div class="song-body">
-      <!-- <form> -->
-        <button class="song" type="submit" >
-          <i class="fas fa-play play song__play"></i>
-          <div class="song-img" style="background-image: url(https://i1.sndcdn.com/avatars-PSUlFhUVy1gfu3Td-jXKnDw-t200x200.jpg);" ></div>
-          <p class="song-info">Chúng ta của hiện tại</p>
-          <p class="song-info">Sơn từng MTP </p>
-        
-          <!-- <input type="text" name="nhac" value = "1" hidden> -->
-        </button>
-        <?php
-        require './List_music.php';
-        ?>
-      <!-- </form> -->
+      <?php
+      require './List_music.php';
+      ?>
     </div>
   </div>
   <div class="player">
-    <audio controls  class="song_audio" autoplay>
+    <audio controls class="song_audio" autoplay>
       <source src="./static/audio/Rapitalove EP- Tay To - RPT MCK x RPT PhongKhin (Prod. by RPT PhongKhin) by Rapital.mp3" type="audio/mp3" />
-      <!-- <source id='2' src=" ./static/audio/SƠN TÙNG M-TP - CHÚNG TA CỦA HIỆN TẠI by Sơn Tùng M-TP Official - Free Listening on SoundCloud.mp3" type="audio/mp3"> -->
     </audio>
     <div class="player-img"></div>
     <div class="player-info">
@@ -92,22 +81,50 @@
         a.css("opacity", "0");
       }
     )
-      function myFunction(id){
-        var target = id.children[1];
-        var playerimage = document.getElementsByClassName('player-img')[0];
-        var playerinfo = document.getElementsByClassName('player-info')[0];
-        playerimage.style.backgroundImage = target.style.backgroundImage;
-        playerinfo.children[0].textContent = id.children[2].textContent;
-        playerinfo.children[1].textContent = id.children[3].textContent;
-     
-        var songaudio = document.getElementsByClassName('song_audio');
-        // console.log(songaudio);
-        document.getElementsByClassName('song_audio')[0].load();
-        songaudio[0].children[0].src = id.children[4].textContent;
-        // document.getElementsByClassName('song_audio').reload();
-        // songaudio[0].children[0].reload();
-      }
 
+    function myFunction(id) {
+      var target = id.children[1];
+      var playerimage = document.getElementsByClassName('player-img')[0];
+      var playerinfo = document.getElementsByClassName('player-info')[0];
+      playerimage.style.backgroundImage = target.style.backgroundImage;
+      playerinfo.children[0].textContent = id.children[2].textContent;
+      playerinfo.children[1].textContent = id.children[3].textContent;
+      var songaudio = document.getElementsByClassName('song_audio');
+      songaudio[0].children[0].src = id.children[4].textContent;
+      document.getElementsByClassName('song_audio')[0].load();
+    }
+
+    function findSong(value) {
+      var searchItem = document.getElementsByClassName('getInfo')[0];
+      if (value != "") {
+        document.getElementsByClassName('getInfo')[0].children[0].innerHTML = value;
+      }
+      if (value.length == 0) {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+      } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = async function() {
+          if (this.readyState == 4 && this.status == 200) {
+            let value = JSON.parse(this.responseText);
+            if (value.length > 0) {
+              var Option = document.getElementsByClassName("Option");
+              // console.log(Option);
+              while (Option.lastElementChild) {
+                Option.removeChild(myNode.lastElementChild);
+              }
+              let buttonDropdown = document.getElementsByClassName('dropdown-search')[0];
+              let button = document.createElement('button')
+              button.className = "Option";
+              button.innerHTML = " <i class='fas fa-search' style='margin-right: 15px;'>  </i> " + value;
+              buttonDropdown.appendChild(button);
+            }
+          }
+        };
+        xmlhttp.open("GET", "gethint.php?value=" + value, true);
+        xmlhttp.send();
+      }
+    }
   </script>
 </body>
 
