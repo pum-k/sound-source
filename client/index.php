@@ -38,7 +38,7 @@
         <input type="search" placeholder="Search for song" class="input-search" onkeyup="findSong(this.value)" />
         <div class="dropdown-search">
           <button class="getInfo">Search for: <span class="search_content"></span> </button>
-          <button><i class="fas fa-search" style="margin-right: 15px;"></i>Example</button>
+
         </div>
         <button type="submit" class="search-icon">
           <i class="fas fa-search"></i>
@@ -92,14 +92,20 @@
       songaudio[0].children[0].src = id.children[4].textContent;
       document.getElementsByClassName('song_audio')[0].load();
     }
-
     function findSong(value) {
       var searchItem = document.getElementsByClassName('getInfo')[0];
+      var Option = document.getElementsByClassName("Option");
+      let buttonDropdown = document.getElementsByClassName('dropdown-search')[0];
       if (value != "") {
         document.getElementsByClassName('getInfo')[0].children[0].innerHTML = value;
+
+        while (document.getElementsByClassName('dropdown-search')[0].length > 1) {
+          document.getElementsByClassName('dropdown-search')[0].removeChild(myNode.lastElementChild);
+        }
       }
       if (value.length == 0) {
-        document.getElementById("txtHint").innerHTML = "";
+        buttonDropdown.innerHTML = '';
+        buttonDropdown.innerHTML = '<button class="getInfo">Search for: <span class="search_content"></span> </button>';
         return;
       } else {
         var xmlhttp = new XMLHttpRequest();
@@ -107,16 +113,15 @@
           if (this.readyState == 4 && this.status == 200) {
             let value = JSON.parse(this.responseText);
             if (value.length > 0) {
-              var Option = document.getElementsByClassName("Option");
               // console.log(Option);
-              while (Option.lastElementChild) {
+              while (Option.length > 0) {
                 Option.removeChild(myNode.lastElementChild);
               }
-              let buttonDropdown = document.getElementsByClassName('dropdown-search')[0];
               let button = document.createElement('button')
               button.className = "Option";
               button.innerHTML = " <i class='fas fa-search' style='margin-right: 15px;'>  </i> " + value;
               buttonDropdown.appendChild(button);
+
             }
           }
         };
