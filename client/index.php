@@ -92,12 +92,6 @@
       songaudio[0].children[0].src = id.children[4].textContent;
       document.getElementsByClassName('song_audio')[0].load();
     }
-
-    function takeSong() {
-      console.log('hello');
-    }
-
-
     function findSong(value) {
       var searchItem = document.getElementsByClassName('getInfo')[0];
       var Option = document.getElementsByClassName("Option");

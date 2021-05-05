@@ -24,7 +24,7 @@
           <a href="upload.html">Upload</a>
         </div>
         <div class="item item-search">
-          <input type="search" />
+          <input type="search" class="search_Song" value="" onkeydown="searchSong(event)"/>
           <i class="fas fa-search"></i>
         </div>
       </div>
@@ -59,9 +59,9 @@
         </div>
         <div class="search-item">
           <i class="total-search">Found 500+ people, 500+ tracks</i>
-          <div class="ctn-search-item">
+          <div class="ctn-search-item" id="renderPeople">
             <!-- This for rendering -->
-            <div class="people">
+            <!-- <div class="people">
               <div class="avatar"></div>
               <div class="info">
                 <p class="people-name">Kessha</p>
@@ -81,12 +81,12 @@
                 <p class="people-name">Kessha</p>
                 <i>10 tracks</i>
               </div>
-            </div>
+            </div> -->
              <!-- This for rendering people -->
           </div>
-          <div class="ctn-search-item">
+          <div class="ctn-search-item" id="renderSong">
             <!-- This for rendering -->
-            <div class="song">
+            <!-- <div class="song">
               <div class="avatar"></div>
               <div class="info">
                 <p class="artist">Kessha</p>
@@ -106,7 +106,8 @@
                 <p class="artist">Kessha</p>
                 <p>Can we love?</p>
               </div>
-            </div>
+            </div> -->
+            <!-- This for rendering -->
           </div>
         </div>
       </div>
@@ -116,8 +117,49 @@
     src="https://kit.fontawesome.com/3e954ec838.js"
     crossorigin="anonymous"
   ></script>
-  <script>
-    
+  <script>  
+    // var search_song = document.getElementsByClassName('search_Song');
+    function searchSong(event){
+      var song = document.getElementsByClassName('search_Song')[0];
+      if(event.keyCode == 13 ){
+        value = song.value;
+        // console.log(song.value);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = async function() {
+          if (this.readyState == 4 && this.status == 200) {
+            let value = JSON.parse(this.responseText);
+            if (value.length > 0) {
+              console.log(value[0]);
+              let renderSong = document.getElementById('renderSong');
+              renderSong.innerHTML = `
+              <div class="song">
+              <div class="avatar"></div>
+              <div class="info">
+                <p class="artist">` + value[0][7] +`</p>
+                <p>`+ value[0][1]+`</p>
+              </div>
+              </div>
+              
+              `;
+              let renderPeople = document.getElementById('renderPeople');
+              renderPeople.innerHTML = `
+              <div class="people">
+              <div class="avatar" style="background-image: url(`+value[0][4]+`)"></div>
+              <div class="info">
+                <p class="people-name">` + value[0][1] +`</p>
+                <i>` + value[0][5] +`</i>
+              </div>
+            </div>
+              
+              `;
+            }
+          }
+        };
+        xmlhttp.open("GET", "searchSong.php?value=" + value, true);
+        xmlhttp.send();
+      }
+    }
+
 
   </script>
 </html>
