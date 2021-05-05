@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <!-- CSS only -->
   <title>SoundSource</title>
 </head>
