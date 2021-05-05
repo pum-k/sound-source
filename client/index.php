@@ -93,6 +93,10 @@
       songaudio[0].children[0].src = id.children[4].textContent;
       document.getElementsByClassName('song_audio')[0].load();
     }
+    function takeSong (){
+      console.log('hello');
+    }
+
 
     function findSong(value) {
       var searchItem = document.getElementsByClassName('getInfo')[0];
@@ -100,7 +104,6 @@
         document.getElementsByClassName('getInfo')[0].children[0].innerHTML = value;
       }
       if (value.length == 0) {
-        // document.getElementById("txtHint").innerHTML = "";
         var Option = document.getElementsByClassName("Option");
         buttonDropdown.innerHTML = '';
         buttonDropdown.innerHTML = '<button class="getInfo">Search for: <span class="search_content"></span> </button>';
@@ -114,13 +117,11 @@
             if (value.length > 0) {
               var Option = document.getElementsByClassName("Option");
               console.log(Option);
-              if (Option.length > 0) {
-                // console.log(buttonDropdown.firstChild);
-                buttonDropdown.removeChild(buttonDropdown.lastChild);
-      
-              }
+             
               let button = document.createElement('button')
               button.className = "Option";
+              button.setAttribute('onclick', "takeSong()")
+           
               button.innerHTML = " <i class='fas fa-search' style='margin-right: 15px;'>  </i> " + value;
               buttonDropdown.appendChild(button);
             }
