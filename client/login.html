@@ -18,7 +18,7 @@
         class="form-login"
         action="handleLogin.php"
         method="POST"
-        onsubmit="return (validation() && checkLogin())"
+        onsubmit="return (validation())"
       >
         <input
           autocomplete="off"
@@ -38,6 +38,7 @@
       <a href="forgot-pass.html">Forgot your password?</a>
     </div>
   </body>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     const validation = () => {
@@ -68,19 +69,6 @@
       password[0].style.color = "black";
       username[0].placeholder = "Username";
       password[0].placeholder = "Password";
-    };
-
-    const checkLogin = () => {
-      $.ajax({
-        url: 'handleLogin.php',
-        type: "post",
-        success: function (response) {
-        console.log(response);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-           console.log('error');
-        }
-      })
     };
   </script>
 </html>
