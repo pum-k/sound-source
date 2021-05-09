@@ -12,6 +12,11 @@ p {
   padding: 0;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .ctn-main {
   max-width: 1240px;
   margin: 0 auto;

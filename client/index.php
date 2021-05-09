@@ -20,7 +20,7 @@
       <div class="navbar">
         <p class="nav-title">SoundSource</p>
         <div>
-          <button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.html">Sign Inb</a></button>
+          <button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>
           <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>
         </div>
       </div>
@@ -30,7 +30,7 @@
           Discover, stream, and share a constantly expanding mix of music from
           emerging and major artists around the world.
         </p>
-        <button class="btn hvr-pulse-grow"><a href="./login.html">Sign up now</a></button>
+        <button class="btn hvr-pulse-grow"><a href="./login.php">Sign up now</a></button>
       </div>
     </div>
     <div class="form-search">

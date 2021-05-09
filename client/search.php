@@ -18,14 +18,14 @@
           <a href="./index.php">Home</a>
         </div>
         <div class="item">
-          <a href="#">Library</a>
-        </div>
-        <div class="item">
           <a href="upload.html">Upload</a>
         </div>
         <div class="item item-search">
           <input type="search" class="search_Song" value="" onkeydown="searchSong(event)"/>
           <i class="fas fa-search"></i>
+        </div>
+        <div class="item-user" id="user">
+          <button>Log in</button>
         </div>
       </div>
     </div>
@@ -117,6 +117,8 @@
     src="https://kit.fontawesome.com/3e954ec838.js"
     crossorigin="anonymous"
   ></script>
+  <script src="handleUser.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>  
     // var search_song = document.getElementsByClassName('search_Song');
     function searchSong(event){
@@ -159,7 +161,7 @@
         xmlhttp.send();
       }
     }
-
-
+    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.html'"
+    loadUser("user",`<button onclick="${notLoggedIn}">Login</button>`);
   </script>
 </html>
