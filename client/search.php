@@ -18,7 +18,7 @@
           <a href="./index.php">Home</a>
         </div>
         <div class="item">
-          <a href="upload.html">Upload</a>
+          <a href="upload.php">Upload</a>
         </div>
         <div class="item item-search">
           <input type="search" class="search_Song" value="" onkeydown="searchSong(event)"/>

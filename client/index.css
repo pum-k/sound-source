@@ -234,26 +234,19 @@ a {
   position: fixed;
   bottom: 0;
   border-top: 1px solid #ccc;
-  background-color: #fff;
   display: flex;
   justify-content: center;
-  background-color: #eee;
+  background-color: #1B1B1B;
   align-items: center;
 }
 
 .player > audio {
-  background: none;
   width: 800px;
-  height: 90%;
 }
 
-audio::-webkit-media-controls-play-button,
-audio::-webkit-media-controls-panel {
-  background-color: #eee;
-  color: #000;
-}
 
 .player-info {
+  color: white;
   margin-left: 10px;
   font-size: 12px;
   line-height: 16px;
