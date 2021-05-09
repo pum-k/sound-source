@@ -99,9 +99,9 @@
   <script src="./handleUser.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.html'";
+    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.php'";
     loadUser("user",`<button onclick="${notLoggedIn}">Login</button>`);
-    if(!sessionStorage.getItem('id_user')){
+    if(!sessionStorage.getItem('username')){
       window.location.replace('http://localhost/sound-source/client/index.php');
     }
   </script>
