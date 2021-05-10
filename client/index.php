@@ -35,13 +35,13 @@
     </div>
     <div class="form-search">
       <form>
-        <input type="search" placeholder="Search for song" class="input-search" onkeyup="findSong(this.value)" />
-        <div class="dropdown-search">
+        <input placeholder="Search for song" class="input-search" onkeyup="findSong(this.value)" onkeydown="ChangePageSearch(event)"/>
+        <div class="dropdown-search"  onclick="search()">
           <button class="getInfo">Search for: <span class="search_content"></span> </button>
-
+     
         </div>
         <button type="submit" class="search-icon">
-          <i class="fas fa-search"></i>
+          <i cl ass="fas fa-search"></i>
         </button>
       </form>
       <span style="color: #999;">or</span>
@@ -81,6 +81,10 @@
       }
     )
 
+    function search() {
+      console.log('hello');
+    }
+
     function myFunction(id) {
       var target = id.children[1];
       var playerimage = document.getElementsByClassName('player-img')[0];
@@ -91,6 +95,14 @@
       var songaudio = document.getElementsByClassName('song_audio');
       songaudio[0].children[0].src = id.children[4].textContent;
       document.getElementsByClassName('song_audio')[0].load();
+    }
+    function ChangePageSearch(event) {
+      // 
+      let input = document.getElementsByClassName('input-search')[0];
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        window.location.replace('http://localhost/sound-source/client/search.php?value=' + input.value);
+      }
     }
     function findSong(value) {
       var searchItem = document.getElementsByClassName('getInfo')[0];
@@ -107,7 +119,8 @@
         buttonDropdown.innerHTML = '';
         buttonDropdown.innerHTML = '<button class="getInfo">Search for: <span class="search_content"></span> </button>';
         return;
-      } else {
+      } 
+      else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = async function() {
           if (this.readyState == 4 && this.status == 200) {
@@ -115,13 +128,15 @@
             if (value.length > 0) {
               // console.log(Option);
               while (Option.length > 0) {
-                Option.removeChild(myNode.lastElementChild);
+               
+                  Option.removeChild(myNode.lastElementChild);
+                
               }
               let button = document.createElement('button')
+              button.setAttribute('onClick', 'search()')
               button.className = "Option";
               button.innerHTML = " <i class='fas fa-search' style='margin-right: 15px;'>  </i> " + value;
               buttonDropdown.appendChild(button);
-
             }
           }
         };
