@@ -64,11 +64,7 @@ body {
 .people .avatar {
   width: 160px;
   height: 160px;
-  /* background-image:url(../); */
-  background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
-  /* background-position: center center; */
   border-radius: 50%;
 }
 
@@ -96,6 +92,7 @@ body {
   width: 160px;
   height: 160px;
   background-color: brown;
+  /* background-size: cover; */
 }
 
 .artist {
