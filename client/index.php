@@ -19,18 +19,13 @@
     <div class="header">
       <div class="navbar">
         <p class="nav-title">SoundSource</p>
-        <div>
-          <button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.html">Sign Inb</a></button>
+        <div id='user'>
+          <button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>
           <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>
         </div>
       </div>
-      <div class="panel">
-        <h2>Connect to SoundSource</h2>
-        <p>
-          Discover, stream, and share a constantly expanding mix of music from
-          emerging and major artists around the world.
-        </p>
-        <button class="btn hvr-pulse-grow"><a href="./login.html">Sign up now</a></button>
+      <div class="panel" id="panel">
+        
       </div>
     </div>
     <div class="form-search">
@@ -45,7 +40,7 @@
         </button>
       </form>
       <span style="color: #999;">or</span>
-      <button class="btn btn-upload hvr-pulse-grow">Upload your own</button>
+      <button class="btn btn-upload hvr-pulse-grow" onclick="checkUserToUpdate()">Upload your own</button>
     </div>
     <p class="title">Hear what’s trending for free in the SoundSource</p>
     <div class="song-body">
@@ -61,14 +56,12 @@
     <div class="player-img"></div>
     <div class="player-info">
       <p>Tay To </p>
-      <i style="color: #666;">Vu</i>
+      <i style="color: #ddd;">Vu</i>
     </div>
   </div>
   <div style="margin-bottom: 100px;">
-  </div>
-  <?php
-
-  ?>
+  </div>  
+  <script src="./handleUser.js"></script>
   <script type="text/javascript">
     $('.song').hover(
       (e) => {
@@ -142,6 +135,34 @@
         };
         xmlhttp.open("GET", "gethint.php?value=" + value, true);
         xmlhttp.send();
+      }
+    }
+    let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>  <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>`
+    loadUser('user',html);
+    
+    const checkLogin = () => {
+      const panel = document.getElementById('panel');
+      if(sessionStorage.getItem("username")===null){
+        panel.innerHTML = `<h2>Connect to SoundSource</h2>
+        <p>
+          Discover, stream, and share a constantly expanding mix of music from
+          emerging and major artists around the world.
+        </p>
+        <button class="btn hvr-pulse-grow"><a href="./login.php">Sign in now</a></button>`;
+      } else {
+        panel.innerHTML = `<h2>Connect to SoundSource</h2>
+        <p>
+          Discover, stream, and share a constantly expanding mix of music from
+          emerging and major artists around the world.
+        </p>`;
+      }
+    }
+    checkLogin();
+    const checkUserToUpdate = () => {
+      if(sessionStorage.getItem('username')){
+        window.location.replace('upload.php');
+      } else {
+        window.location.replace('http://localhost/sound-source/client/login.php');
       }
     }
   </script>

@@ -62,8 +62,8 @@ select:focus {
 .upload-photo {
   cursor: pointer;
   position: absolute;
-  bottom: 30px;
-  right: 25%;
+  bottom: 20%;
+  right: 20%;
   border: 1px solid #ccc;
   border-radius: 3px;
   padding: 5px;

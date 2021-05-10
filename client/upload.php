@@ -21,14 +21,14 @@
           <a href="./index.php">Home</a>
         </div>
         <div class="item">
-          <a href="#">Library</a>
-        </div>
-        <div class="item">
-          <a href="upload.html">Upload</a>
+          <a href="upload.php">Upload</a>
         </div>
         <div class="item item-search">
           <input type="search" />
           <i class="fas fa-search"></i>
+        </div>
+        <div class="item-user" id="user">
+          <button>Log in</button>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
                 <i class="fas fa-camera"></i>
                   Upload your photo
                 </button>
-                <input type="text">
+                <input id="fileUpload" style="display: none" type="file">
               </div>
             </div>
 
@@ -96,5 +96,14 @@
     </div>
   </body>
   <script src="./upload.js"></script>
+  <script src="./handleUser.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.php'";
+    loadUser("user",`<button onclick="${notLoggedIn}">Login</button>`);
+    if(!sessionStorage.getItem('username')){
+      window.location.replace('http://localhost/sound-source/client/index.php');
+    }
+  </script>
 </html>
 

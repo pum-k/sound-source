@@ -39,6 +39,7 @@ a {
   display: flex;
   align-items: center;
   margin: 0 auto;
+  position: relative;
 }
 
 .title {
@@ -75,11 +76,32 @@ a {
 }
 
 .item-search {
-  margin-left: 300px;
+  margin-left: 250px;
   border: none;
   display: flex;
   align-items: center;
   padding: 0;
+}
+
+.item-user {
+  position: absolute;
+  margin-left: 280px;
+  color: white;
+  right: 0;
+}
+
+.item-user > button {
+  background-color: transparent;
+  color: white;
+  height: auto;
+  height: 30px;
+  width: 70px;
+  cursor: pointer;
+  transition: 0.3s;
+} 
+
+.item-user > button:hover {
+  border-color: #fe9132;
 }
 
 .item-search > input {

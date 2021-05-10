@@ -75,7 +75,7 @@
             $result = mysqli_query($conn, $query);
             while ($row = mysqli_fetch_row($result)) {
               echo  '<div class="people">';
-              echo  '<div class="avatar" style="background-image: url(' .$row['4']. ')"></div>';
+              echo  '<div class="avatar" style="background-image: url(' . $row['4'] . ')"></div>';
               echo  '<div class="info">';
               echo    '<p class="people-name">' . $row['1'] . '</p>';
               echo  ' <i>10 tracks</i>';
@@ -86,7 +86,7 @@
           ?>
         </div>
         <div class="ctn-search-item" id="renderSong">
-        <?php
+          <?php
           $servername =  "localhost";
           $username =   "root";
           $password =   "";
@@ -100,8 +100,8 @@
               echo   '<div class="song">';
               echo '<div class="avatar"></div>';
               echo '<div class="info">';
-              echo  '<p class="artist">' .$row[7]. '</p>';
-              echo  '<p>' .$row[1]. ' </p>';
+              echo  '<p class="artist">' . $row[7] . '</p>';
+              echo  '<p>' . $row[1] . ' </p>';
               echo '</div>';
               echo '</div>';
             }
@@ -161,6 +161,9 @@
     xmlhttp.open("GET", "searchSong.php?value=" + value, true);
     xmlhttp.send();
   }
+  const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'"
+  loadUser("user", `<button onclick="${notLoggedIn}">Login</button>`);
 </script>
+
 
 </html>
