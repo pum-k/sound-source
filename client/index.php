@@ -20,7 +20,7 @@
       <div class="navbar">
         <p class="nav-title">SoundSource</p>
         <div id='user'>
-          <button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.html" style="color: white">Sign In</a></button>
+          <button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>
           <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>
         </div>
       </div>
@@ -122,19 +122,18 @@
         xmlhttp.send();
       }
     }
-    let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.html" style="color: white">Sign In</a></button>
-          <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>`
+    let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>  <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>`
     loadUser('user',html);
     
     const checkLogin = () => {
       const panel = document.getElementById('panel');
-      if(!sessionStorage.getItem("id_user")){
+      if(sessionStorage.getItem("username")===null){
         panel.innerHTML = `<h2>Connect to SoundSource</h2>
         <p>
           Discover, stream, and share a constantly expanding mix of music from
           emerging and major artists around the world.
         </p>
-        <button class="btn hvr-pulse-grow"><a href="./login.html">Sign in now</a></button>`;
+        <button class="btn hvr-pulse-grow"><a href="./login.php">Sign in now</a></button>`;
       } else {
         panel.innerHTML = `<h2>Connect to SoundSource</h2>
         <p>
@@ -144,17 +143,14 @@
       }
     }
     checkLogin();
-    
     const checkUserToUpdate = () => {
-      console.log(sessionStorage.getItem('id_user'));
-      if(sessionStorage.getItem('id_user')){
-        window.location.replace('http://localhost/sound-source/client/upload.php');
+      if(sessionStorage.getItem('username')){
+        window.location.replace('upload.php');
       } else {
-        window.location.replace('http://localhost/sound-source/client/login.html');
+        window.location.replace('http://localhost/sound-source/client/login.php');
       }
     }
   </script>
-  
 </body>
 
 </html>

@@ -161,7 +161,7 @@
         xmlhttp.send();
       }
     }
-    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.html'"
+    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.php'"
     loadUser("user",`<button onclick="${notLoggedIn}">Login</button>`);
   </script>
 </html>
