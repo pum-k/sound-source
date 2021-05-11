@@ -57,7 +57,6 @@
                 <label for="genre">Genre:</label>
                 <select name="genre" id="genre" class="genre">
                   <option value="">None</option>
-                  <option value="custom">Custom</option>
                   <option value="rock">Rock</option>
                   <option value="ballad">Ballad</option>
                   <option value="danceNEdm">Dance&Edm</option>
@@ -65,16 +64,12 @@
                   <option value="pop">Pop</option>
                   <option value="rap">Rap</option>
                   <option value="bolero">Bolero</option>
-                  <option value="audioBooks">Audiobooks</option>
+                  <option value="audioBooks">Audio books</option>
+                  <option value="custom">Other...</option>
                 </select>
-                </div>
-                <div>
-                  <label for="customGenre">Custom Genre:</label>
-                  <input type="text" name="customGenre" class="custom-genre">
                 </div>
               </div>
               
-
               <label for="description">Description: </label>
               <textarea name="description" id="description" rows="10" class="description" placeholder="Describe your track" ></textarea>
               

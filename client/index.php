@@ -25,18 +25,25 @@
         </div>
       </div>
       <div class="panel" id="panel">
-        
       </div>
     </div>
     <div class="form-search">
-      <form>
+      <!-- <form>
         <input placeholder="Search for song" class="input-search" onkeyup="findSong(this.value)" onkeydown="ChangePageSearch(event)"/>
         <div class="dropdown-search"  onclick="search()">
           <button class="getInfo">Search for: <span class="search_content"></span> </button>
-     
         </div>
         <button type="submit" class="search-icon">
-          <i cl ass="fas fa-search"></i>
+          <i class="fas fa-search"></i>
+        </button>
+      </form> -->
+      <form action="handle-search.php" method="POST">
+        <input placeholder="Search for song and artist" class="input-search" name="search" />
+        <!-- <div class="dropdown-search"  onclick="search()">
+          <button class="getInfo">Search for: <span class="search_content"></span> </button>
+        </div> -->
+        <button type="submit" class="search-icon">
+          <i class="fas fa-search"></i>
         </button>
       </form>
       <span style="color: #999;">or</span>
@@ -62,6 +69,7 @@
   <div style="margin-bottom: 100px;">
   </div>  
   <script src="./handleUser.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script type="text/javascript">
     $('.song').hover(
       (e) => {

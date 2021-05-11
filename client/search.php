@@ -23,10 +23,10 @@
         <a href="#">Library</a>
       </div>
       <div class="item">
-        <a href="upload.html">Upload</a>
+        <a href="upload.php">Upload</a>
       </div>
       <div class="item item-search">
-        <input type="search" class="search_Song" value="" onkeydown="searchSong(event)" />
+        <input type="search" class="search_Song"/>
         <i class="fas fa-search"></i>
       </div>
     </div>
@@ -34,7 +34,7 @@
 
   <div class="ctn-main">
     <div class="value">
-      <h2>Search results for "keyword"</h2>
+      <h2>Search results for <?php session_start(); echo $_SESSION['search']; ?></h2>
     </div>
     <div class="results">
       <div class="type">
@@ -62,108 +62,65 @@
       <div class="search-item">
         <i class="total-search">Found 500+ people, 500+ tracks</i>
         <div class="ctn-search-item" id="renderPeople">
-          <!-- This for rendering -->
-          <?php
-          $servername =  "localhost";
-          $username =   "root";
-          $password =   "";
-          $conn = @new mysqli($servername, $username, $password, "sound-source");
-          mysqli_set_charset($conn, 'utf8');
-          if (isset($_REQUEST['value'])) {
-            $value = $_REQUEST['value'];
-            $query = "SELECT * ,tacgia_ten FROM baihat INNER JOIN tacgia ON tacgia.tacgia_id = baihat.tacgia_id where MATCH(baihat_ten) AGAINST( '%$value%' )";
-            $result = mysqli_query($conn, $query);
-            while ($row = mysqli_fetch_row($result)) {
-              echo  '<div class="people">';
-              echo  '<div class="avatar" style="background-image: url(' . $row['4'] . ')"></div>';
-              echo  '<div class="info">';
-              echo    '<p class="people-name">' . $row['1'] . '</p>';
-              echo  ' <i>10 tracks</i>';
-              echo  '</div>';
-              echo '</div>';
-            }
-          }
-          ?>
         </div>
         <div class="ctn-search-item" id="renderSong">
-          <?php
-          $servername =  "localhost";
-          $username =   "root";
-          $password =   "";
-          $conn = @new mysqli($servername, $username, $password, "sound-source");
-          mysqli_set_charset($conn, 'utf8');
-          if (isset($_REQUEST['value'])) {
-            $value = $_REQUEST['value'];
-            $query = "SELECT * ,tacgia_ten FROM baihat INNER JOIN tacgia ON tacgia.tacgia_id = baihat.tacgia_id where MATCH(baihat_ten) AGAINST( '%$value%' )";
-            $result = mysqli_query($conn, $query);
-            while ($row = mysqli_fetch_row($result)) {
-              echo   '<div class="song">';
-              echo '<div class="avatar"></div>';
-              echo '<div class="info">';
-              echo  '<p class="artist">' . $row[7] . '</p>';
-              echo  '<p>' . $row[1] . ' </p>';
-              echo '</div>';
-              echo '</div>';
-            }
-          }
-          ?>
         </div>
       </div>
     </div>
   </div>
 </body>
-<?php
-// if (isset($_REQUEST['value'])) {
-//   echo ` <script> renderPeople(` .$_REQUEST['value'].`)</script>`;
-// }
-?>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous">
+</script>
+		
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
 <script>
-  function searchSong(event) {
-    var song = document.getElementsByClassName('search_Song')[0];
-    if (event.keyCode == 13) {
-      value = song.value;
-      renderPeople(value);
-    }
-  }
+  let getSessionTracks = <?php
+    session_start();
+    echo json_encode($_SESSION["tracks"], JSON_HEX_TAG);
+  ?>;
 
-  function renderPeople(value) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = async function() {
-      if (this.readyState == 4 && this.status == 200) {
-        let value = JSON.parse(this.responseText);
-        if (value.length > 0) {
-          console.log(value[0]);
-          let renderSong = document.getElementById('renderSong');
-          renderSong.innerHTML = `
-              <div class="song">
-              <div class="avatar"></div>
-              <div class="info">
-                <p class="artist">` + value[0][7] + `</p>
-                <p>` + value[0][1] + `</p>
-              </div>
-              </div>
-              
-              `;
-          let renderPeople = document.getElementById('renderPeople');
-          renderPeople.innerHTML = `
-              <div class="people">
-              <div class="avatar" style="background-image: url(` + value[0][4] + `)"></div>
-              <div class="info">
-                <p class="people-name">` + value[0][1] + `</p>
-                <i>` + value[0][5] + `</i>
-              </div>
-            </div>
-              `;
-        }
-      }
-    };
-    xmlhttp.open("GET", "searchSong.php?value=" + value, true);
-    xmlhttp.send();
-  }
-  const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'"
+  //get tracks
+  const tracks = [];
+  let getTracks = getSessionTracks[0];
+  for(let i = 0; i < getTracks.length; i++){
+    tracks.push({"name": getTracks[i][0],"url": getTracks[i][1],"image" : getTracks[i][2], "artist": getTracks[i][3]});
+  };
+  //get artist
+
+  //render tracks
+  const renderPeople = document.getElementById('renderSong');
+  console.log(renderPeople);
+  let htmlRender;
+  tracks.forEach((track) => {
+    htmlRender = `
+      <div class='song'>
+        <div class='avatar' style="background-image: url('${track['image']}')"></div>
+        <div class="info">
+          <p>${track['name']}</p>
+          <p class='artist'>${track['artist']}</p>
+        </div>
+      </div>
+    `;
+
+    //render artist
+    // <div class='people'>
+    //     <div class='avatar' style="background-image: url('${track['image']}')"></div>
+    //     <div class="info">
+    //       <p>${track['name']}</p>
+    //       <p class='people-name'>${track['artist']}</p>
+              // <i>10 tracks</i>
+    //     </div>
+    //   </div>
+
+    
+    console.log(htmlRender);
+    renderPeople.innerHTML += htmlRender;
+  });
+  
+  const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
   loadUser("user", `<button onclick="${notLoggedIn}">Login</button>`);
 </script>
-
-
 </html>
