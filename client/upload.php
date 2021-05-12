@@ -36,6 +36,7 @@
     <div class="ctn-main">
     <h2 class="main-title">Basic Information</h2>
       <div class="ctn-info">
+      
             <div class="left">
               <div class="photo" id="photo" >
                 <button class="upload-photo" onclick="uploadPhoto()">
@@ -45,13 +46,11 @@
                 <input id="fileUpload" style="display: none" type="file">
               </div>
             </div>
-
             <div class="right">
               <label for="uploadFile">Upload file:</label>
               <input type="file">
               <label for="title">Title:</label>
               <input type="text" name="title" placeholder="Name your track"/>
-
               <div style="display: flex; justify-content:space-between">
                 <div>
                 <label for="genre">Genre:</label>
@@ -87,6 +86,7 @@
                 <button class="btn btn-save">Save</button>
               </div>
             </div>
+            </form>
       </div>
     </div>
   </body>

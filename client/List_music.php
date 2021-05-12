@@ -16,7 +16,6 @@ while ($row = $result->fetch_assoc()) {
     echo '<p class="song-info">'.$row['baihat_ten'] .'</p>';
     echo '<p class="song-info">artist name</p>';
     echo '<p class="song-audio" hidden> '.$row['baihat_url'].'</p>';
-
     echo '</button>';
     $count--;
 }
