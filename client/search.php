@@ -34,8 +34,11 @@
 
   <div class="ctn-main">
     <div class="value">
-      <h2>Search results for <?php session_start();
-                              echo $_SESSION['search']; ?></h2>
+      <h2>Search results for <?php
+                              session_start();
+                              echo $_SESSION['search']; ?>
+
+      </h2>
     </div>
     <div class="results">
       <div class="type">
@@ -79,7 +82,6 @@
     var song = document.getElementsByClassName('search_Song')[0];
     if (event.keyCode == 13) {
       value = song.value;
-
       renderPeopleInfo(value);
     }
   }
@@ -90,7 +92,7 @@
       if (this.readyState == 4 && this.status == 200) {
         let value = JSON.parse(this.responseText);
         if (value.length > 0) {
-          // console.log(value);
+  
           let renderSong = document.getElementById('renderSong');
           renderSong.innerHTML = '';
           let htmlRender;
@@ -104,9 +106,9 @@
                   </div>
                 </div>
               `;
-              renderSong.innerHTML += htmlRender;
+            renderSong.innerHTML += htmlRender;
           })
-      
+
         }
       }
     };
@@ -114,12 +116,11 @@
     xmlhttp.send();
   }
 
-
-
-  let getSessionTracks = <?php
+  let getSessionTracks = '<?php
+                          // session_start();
                           echo json_encode($_SESSION["tracks"], JSON_HEX_TAG);
-                          ?>;
-  // console.log(getSessionTracks);
+                          ?>';
+  console.log(getSessionTracks);
 
 
   //get tracks

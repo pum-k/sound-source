@@ -83,6 +83,18 @@ a {
   margin-right: 25px;
   display: flex;
 }
+#div_index {
+  text-align: center;
+}
+#index_music li {
+  display: inline ;
+  padding: 2px 5px;
+}
+
+#index_music li:hover {
+  background-color: orange;
+  cursor: pointer;
+}
 
 .search-icon {
   background-image: #eee;
