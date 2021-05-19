@@ -92,7 +92,7 @@ body {
   width: 160px;
   height: 160px;
   background-color: brown;
-  /* background-size: cover; */
+  background-size: cover !important;
 }
 
 .artist {

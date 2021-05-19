@@ -37,8 +37,8 @@
           <i class="fas fa-search"></i>
         </button>
       </form> -->
-      <form action="handle-search.php" method="POST">
-        <input placeholder="Search for song and artist" class="input-search" name="search" />
+      <form>
+        <input placeholder="Search for song and artist" class="input-search" name="search" onkeydown="ChangePageSearch(event)" />
         <!-- <div class="dropdown-search"  onclick="search()">
           <button class="getInfo">Search for: <span class="search_content"></span> </button>
         </div> -->
@@ -72,7 +72,7 @@
         echo '</button>';
         $count++;
         if ($count >= 11) {
-          break;
+          break;  
         }
       }
       ?>
@@ -102,11 +102,9 @@
   <script type="text/javascript">
     function changePage(index) {
       var xmlhttp = new XMLHttpRequest();
-      console.log(index);
       xmlhttp.onreadystatechange =  function() {
         if (this.readyState == 4 && this.status == 200) {
          let value =  JSON.parse(this.responseText);
-          // console.log(value[0]);
           var song_body = document.getElementsByClassName('song-body')[0];
           song_body.innerHTML = '';
           let song;
@@ -135,9 +133,6 @@
       }
     )
 
-    function search() {
-      console.log('hello');
-    }
 
     function myFunction(id) {
       var target = id.children[1];
@@ -156,6 +151,7 @@
       let input = document.getElementsByClassName('input-search')[0];
       if (event.keyCode == 13) {
         event.preventDefault();
+        console.log('hello');
         window.location.replace('http://localhost/sound-source/client/search.php?value=' + input.value);
       }
     }
