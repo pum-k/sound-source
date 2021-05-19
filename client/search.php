@@ -26,7 +26,7 @@
         <a href="upload.php">Upload</a>
       </div>
       <div class="item item-search">
-        <input type="search" class="search_Song"/>
+        <input type="search" class="search_Song" onkeydown="searchSong(event)" />
         <i class="fas fa-search"></i>
       </div>
     </div>
@@ -34,7 +34,11 @@
 
   <div class="ctn-main">
     <div class="value">
-      <h2>Search results for <?php session_start(); echo $_SESSION['search']; ?></h2>
+      <h2>Search results for <?php
+                              session_start();
+                              echo $_SESSION['search']; ?>
+
+      </h2>
     </div>
     <div class="results">
       <div class="type">
@@ -69,30 +73,71 @@
     </div>
   </div>
 </body>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
 </script>
-		
+
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
 <script>
-  let getSessionTracks = <?php
-    session_start();
-    echo json_encode($_SESSION["tracks"], JSON_HEX_TAG);
-  ?>;
+  function searchSong(event) {
+    var song = document.getElementsByClassName('search_Song')[0];
+    if (event.keyCode == 13) {
+      value = song.value;
+      renderPeopleInfo(value);
+    }
+  }
+
+  function renderPeopleInfo(value) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = async function() {
+      if (this.readyState == 4 && this.status == 200) {
+        let value = JSON.parse(this.responseText);
+        if (value.length > 0) {
+  
+          let renderSong = document.getElementById('renderSong');
+          renderSong.innerHTML = '';
+          let htmlRender;
+          value.forEach(item => {
+            htmlRender = `
+                <div class='song'>
+                  <div class='avatar' style="background-image: url('${item[2]}')"></div>
+                  <div class="info">
+                    <p>${item[0]}</p>
+                    <p class='artist'>${item[3]}</p>
+                  </div>
+                </div>
+              `;
+            renderSong.innerHTML += htmlRender;
+          })
+
+        }
+      }
+    };
+    xmlhttp.open("GET", "searchSong.php?value=" + value, true);
+    xmlhttp.send();
+  }
+
+  let getSessionTracks = '<?php
+                          // session_start();
+                          echo json_encode($_SESSION["tracks"], JSON_HEX_TAG);
+                          ?>';
+  console.log(getSessionTracks);
+
 
   //get tracks
   const tracks = [];
   let getTracks = getSessionTracks[0];
-  for(let i = 0; i < getTracks.length; i++){
-    tracks.push({"name": getTracks[i][0],"url": getTracks[i][1],"image" : getTracks[i][2], "artist": getTracks[i][3]});
+  for (let i = 0; i < getTracks.length; i++) {
+    tracks.push({
+      "name": getTracks[i][0],
+      "url": getTracks[i][1],
+      "image": getTracks[i][2],
+      "artist": getTracks[i][3]
+    });
   };
   //get artist
 
   //render tracks
   const renderPeople = document.getElementById('renderSong');
-  console.log(renderPeople);
   let htmlRender;
   tracks.forEach((track) => {
     htmlRender = `
@@ -111,16 +156,17 @@
     //     <div class="info">
     //       <p>${track['name']}</p>
     //       <p class='people-name'>${track['artist']}</p>
-              // <i>10 tracks</i>
+    // <i>10 tracks</i>
     //     </div>
     //   </div>
 
-    
-    console.log(htmlRender);
+
+    // console.log(htmlRender);
     renderPeople.innerHTML += htmlRender;
   });
-  
+
   const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
-  loadUser("user", `<button onclick="${notLoggedIn}">Login</button>`);
+  // loadUser("user", `<button onclick="${notLoggedIn}">Login</button>`);
 </script>
+
 </html>

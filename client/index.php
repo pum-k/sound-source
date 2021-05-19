@@ -52,8 +52,37 @@
     <p class="title">Hear what’s trending for free in the SoundSource</p>
     <div class="song-body">
       <?php
-      require './List_music.php';
+      $count = 1;
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $conn = new mysqli($servername, $username, $password);
+      $conn->set_charset("utf8");
+      $db = "sound-source";
+      $conn->select_db($db);
+      $statment = 'SELECT * FROM `baihat`';
+      $result = mysqli_query($conn, $statment);
+      while ($row = $result->fetch_assoc()) {
+        echo '<button class="song" id="' . $row['baihat_id'] . '" onclick="myFunction(this)">';
+        echo '<i class="fas fa-play play song__play"></i>';
+        echo '<div class="song-img" style="background-image: url(' . $row['baihat_image'] . ');"></div>';
+        echo '<p class="song-info">' . $row['baihat_ten'] . '</p>';
+        echo '<p class="song-info">artist name</p>';
+        echo '<p class="song-audio" hidden> ' . $row['baihat_url'] . '</p>';
+        echo '</button>';
+        $count++;
+        if ($count >= 11) {
+          break;
+        }
+      }
       ?>
+    </div>
+    <div id="div_index">
+      <ul id="index_music">
+        <li value="1" onclick="changePage(this.value)">1</li>
+        <li value="2" onclick="changePage(this.value)">2</li>
+        <li value="3" onclick="changePage(this.value)">3</li>
+      </ul>
     </div>
   </div>
   <div class="player">
@@ -67,10 +96,34 @@
     </div>
   </div>
   <div style="margin-bottom: 100px;">
-  </div>  
+  </div>
   <script src="./handleUser.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script type="text/javascript">
+    function changePage(index) {
+      var xmlhttp = new XMLHttpRequest();
+      console.log(index);
+      xmlhttp.onreadystatechange =  function() {
+        if (this.readyState == 4 && this.status == 200) {
+         let value =  JSON.parse(this.responseText);
+          // console.log(value[0]);
+          var song_body = document.getElementsByClassName('song-body')[0];
+          song_body.innerHTML = '';
+          let song;
+          value.map(item => {
+            console.log(item);
+            song = `<button class="song" id="2" onclick="myFunction(this)">
+            <i class="fas fa-play play song__play" aria-hidden="true">
+            </i><div class="song-img" style="background-image: url(${item['baihat_image']});">
+            </div><p class="song-info">${item["baihat_ten"]}</p><p class="song-info">artist name</p><p class="song-audio" hidden=""> ${item['baihat_url']}</p>
+            </button>`
+            song_body.innerHTML+=song;
+          })
+        }
+      }
+      xmlhttp.open("GET", "List_music.php?page=" + index, true);
+      xmlhttp.send();
+    }
     $('.song').hover(
       (e) => {
         var a = $(e.target).children(".song__play")
@@ -97,14 +150,16 @@
       songaudio[0].children[0].src = id.children[4].textContent;
       document.getElementsByClassName('song_audio')[0].load();
     }
+
     function ChangePageSearch(event) {
       // 
       let input = document.getElementsByClassName('input-search')[0];
-      if(event.keyCode == 13) {
+      if (event.keyCode == 13) {
         event.preventDefault();
         window.location.replace('http://localhost/sound-source/client/search.php?value=' + input.value);
       }
     }
+
     function findSong(value) {
       var searchItem = document.getElementsByClassName('getInfo')[0];
       var Option = document.getElementsByClassName("Option");
@@ -120,18 +175,15 @@
         buttonDropdown.innerHTML = '';
         buttonDropdown.innerHTML = '<button class="getInfo">Search for: <span class="search_content"></span> </button>';
         return;
-      } 
-      else {
+      } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = async function() {
           if (this.readyState == 4 && this.status == 200) {
             let value = JSON.parse(this.responseText);
             if (value.length > 0) {
-              // console.log(Option);
+             
               while (Option.length > 0) {
-               
-                  Option.removeChild(myNode.lastElementChild);
-                
+                Option.removeChild(myNode.lastElementChild);
               }
               let button = document.createElement('button')
               button.setAttribute('onClick', 'search()')
@@ -146,11 +198,11 @@
       }
     }
     let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>  <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>`
-    loadUser('user',html);
-    
+    loadUser('user', html);
+
     const checkLogin = () => {
       const panel = document.getElementById('panel');
-      if(sessionStorage.getItem("username")===null){
+      if (sessionStorage.getItem("username") === null) {
         panel.innerHTML = `<h2>Connect to SoundSource</h2>
         <p>
           Discover, stream, and share a constantly expanding mix of music from
@@ -167,7 +219,7 @@
     }
     checkLogin();
     const checkUserToUpdate = () => {
-      if(sessionStorage.getItem('username')){
+      if (sessionStorage.getItem('username')) {
         window.location.replace('upload.php');
       } else {
         window.location.replace('http://localhost/sound-source/client/login.php');
