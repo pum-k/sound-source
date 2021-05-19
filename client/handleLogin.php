@@ -11,6 +11,7 @@
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
             $_SESSION["username"]= $row['a_username'];
+            $_SESSION["userId"] = $row['a_id'];
             $_SESSION["validate-login"] = true;
             header('Location: login.php');
             closeCon($conn);

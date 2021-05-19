@@ -19,7 +19,7 @@ const logout = () => {
     url: "removeSession.php",
     type: "POST",
   });
-  let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>  <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>`;
+  let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>  <button class="btn nav-btn-115 hvr-pulse-grow" style="width: 110px;">Create account</button>`;
   sessionStorage.removeItem("username");
   user_info.innerHTML = html;
 };

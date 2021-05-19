@@ -34,9 +34,9 @@
 
   <div class="ctn-main">
     <div class="value">
-      <h2>Search results for <?php
+      <h2>Search results for '<?php
                               session_start();
-                              echo $_SESSION['search']; ?>
+                              echo $_SESSION['search']; ?>'
 
       </h2>
     </div>
@@ -120,12 +120,15 @@
                           // session_start();
                           echo json_encode($_SESSION["tracks"], JSON_HEX_TAG);
                           ?>';
-  console.log(getSessionTracks);
 
 
   //get tracks
   const tracks = [];
   let getTracks = getSessionTracks[0];
+  console.log(getSessionTracks);
+  getSessionTracks.forEach((track) => {
+    console.log(track);
+  })
   for (let i = 0; i < getTracks.length; i++) {
     tracks.push({
       "name": getTracks[i][0],
@@ -134,21 +137,23 @@
       "artist": getTracks[i][3]
     });
   };
+  // console.log("tracks");
+
   //get artist
 
   //render tracks
   const renderPeople = document.getElementById('renderSong');
   let htmlRender;
   tracks.forEach((track) => {
-    htmlRender = `
-      <div class='song'>
-        <div class='avatar' style="background-image: url('${track['image']}')"></div>
-        <div class="info">
-          <p>${track['name']}</p>
-          <p class='artist'>${track['artist']}</p>
-        </div>
-      </div>
-    `;
+    // htmlRender = `
+    //   <div class='song'>
+    //     <div class='avatar' style="background-image: url('${track['image']}')"></div>
+    //     <div class="info">
+    //       <p>${track['name']}</p>
+    //       <p class='artist'>${track['artist']}</p>
+    //     </div>
+    //   </div>
+    // `;
 
     //render artist
     // <div class='people'>
@@ -162,9 +167,9 @@
 
 
     // console.log(htmlRender);
-    renderPeople.innerHTML += htmlRender;
+    // renderPeople.innerHTML += htmlRender;
   });
-
+  tracks = [];
   const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
   // loadUser("user", `<button onclick="${notLoggedIn}">Login</button>`);
 </script>
