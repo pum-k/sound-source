@@ -20,14 +20,13 @@
         <a href="./index.php">Home</a>
       </div>
       <div class="item">
-        <a href="#">Library</a>
-      </div>
-      <div class="item">
         <a href="upload.php">Upload</a>
       </div>
       <div class="item item-search">
         <input type="search" class="search_Song" onkeydown="searchSong(event)" />
         <i class="fas fa-search"></i>
+      </div>
+      <div class="item-user" id="user">
       </div>
     </div>
   </div>
@@ -105,6 +104,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
 </script>
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
+<script src="./handleUser.js"></script>
 <script>
   function searchSong(event) {
     var song = document.getElementsByClassName('search_Song')[0];
@@ -172,50 +172,7 @@
     xmlhttp.send();
   }
 
-
-
-  //get tracks
-  // const tracks = [];
-  // let getTracks = getSessionTracks[0];
-  // for (let i = 0; i < getTracks.length; i++) {
-  //   tracks.push({
-  //     "name": getTracks[i][0],
-  //     "url": getTracks[i][1],
-  //     "image": getTracks[i][2],
-  //     "artist": getTracks[i][3]
-  //   });
-  // };
-  //get artist
-
-  //render tracks
-  // const renderPeople = document.getElementById('renderSong');
-  // let htmlRender;
-  // tracks.forEach((track) => {
-  //   htmlRender = `
-  //     <div class='song'>
-  //       <div class='avatar' style="background-image: url('${track['image']}')"></div>
-  //       <div class="info">
-  //         <p>${track['name']}</p>
-  //         <p class='artist'>${track['artist']}</p>
-  //       </div>
-  //     </div>
-  //   `;
-
-  //   //render artist
-  //   // <div class='people'>
-  //   //     <div class='avatar' style="background-image: url('${track['image']}')"></div>
-  //   //     <div class="info">
-  //   //       <p>${track['name']}</p>
-  //   //       <p class='people-name'>${track['artist']}</p>
-  //   // <i>10 tracks</i>
-  //   //     </div>
-  //   //   </div>
-  //   // console.log(htmlRender);
-  //   renderPeople.innerHTML += htmlRender;
-  // });
-
-  const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
-  // loadUser("user", `<button onclick="${notLoggedIn}">Login</button>`);
+  loadUser("user", true);
 </script>
 
 </html>

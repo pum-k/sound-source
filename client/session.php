@@ -3,7 +3,7 @@
     include ("connection.php");
     $conn = openCon();
     $username = $_SESSION["username"];
-    $sql = "SELECT * FROM account WHERE a_username='".$username."'";
+    $sql = "SELECT * from taikhoan WHERE a_username='".$username."'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {

@@ -193,8 +193,7 @@
         xmlhttp.send();
       }
     }
-    let html = `<button class="btn-outline nav-btn-75 hvr-bounce-to-top"><a href="./login.php" style="color: white">Sign In</a></button>  <button class="btn nav-btn-115 hvr-pulse-grow">Create account</button>`
-    loadUser('user', html);
+    loadUser('user', true);
 
     const checkLogin = () => {
       const panel = document.getElementById('panel');

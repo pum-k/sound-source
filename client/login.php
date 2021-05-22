@@ -42,7 +42,7 @@
       if(validate === true){
         notification('success',"Sign in success, please wait...");
         setTimeout(()=>{
-          window.location.replace("./index.php");
+          location.replace("./index.php");
         },3500);
       }
       if(validate === false)
