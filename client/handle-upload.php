@@ -1,7 +1,7 @@
 <?php
     session_start();
-    $urlImg = '/opt/lampp/htdocs/sound-source/client/static/img/';
-    $urlAudio  = '/opt/lampp/htdocs/sound-source/client/static/audio/';
+    $urlImg = './static/img/audio/';
+    $urlAudio  = './static/audio/';
     $title = $_POST['title'];
     $genre = $_POST['genre'];
     $description = $_POST['description'];
@@ -14,15 +14,28 @@
     include './connection.php';
     $conn = openCon();
     $sql = "INSERT INTO baihat (baihat_ten, baihat_theloai, baihat_url, baihat_image, tacgia_id, baihat_mota, baihat_congkhai) VALUES ('".$title."', '".$genre."', '".$urlFileAudio."', '".$urlFileImg."',$user_id, '".$description."', $privacy);";
-    echo $sql;
- 
         try {
             $result = mysqli_query($conn, $sql);
-            $_SESSION['validate-upload'] = 1;
             move_uploaded_file($_FILES['image']['tmp_name'], $urlFileImg);
             move_uploaded_file($_FILES['audio']['tmp_name'], $urlFileAudio);
-        } catch (\Throwable $th) {
-            $_SESSION['validate-upload'] = 0;
+            echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('upload', true);
+                    window.location.href = './upload.php'
+                </script>
+                ";
+                closeCon($conn);
+                exit();
+        } catch (\Exception $e) {
+            echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('upload', false);
+                    window.location.href = './upload.php'
+                </script>
+                ";
+            closeCon($conn);
+            exit();
         }
-    header('location: upload.php');
 ?>

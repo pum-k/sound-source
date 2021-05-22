@@ -83,10 +83,9 @@
   <script src="./handleUser.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="./Notification.js"></script>
+  <script src="./handle-session-validate.js"></script>
   <script>
-
-    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.php'";
-    loadUser("user",`<button onclick="${notLoggedIn}">Login</button>`);
+    loadUser("user",false);
     
     const inputImg = document.getElementById("image");
     inputImg.onchange = event => {
@@ -99,6 +98,19 @@
     if(!sessionStorage.getItem('username')){
       window.location.replace('http://localhost/sound-source/client/index.php');
     }
+
+    // check success >>> 
+    let validate = getValidate('upload');
+    if(validate) {
+        notification('success', 'Update your profile successfully');
+        deleteValidate('upload');
+    } 
+    
+    if (validate === false) {
+        notification('error', 'Fail to update your profile, please try again!');
+        deleteValidate('upload');
+    }
+    // <<<
   </script>
 </html>
 

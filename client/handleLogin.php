@@ -6,7 +6,7 @@
     $password = $_POST['password'];
 
     session_start();
-    $sql = "SELECT * FROM account WHERE a_username='".$username."' AND a_password='".$password."'";
+    $sql = "SELECT * from taikhoan WHERE a_username='".$username."' AND a_password='".$password."'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {

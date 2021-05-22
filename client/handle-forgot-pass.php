@@ -7,7 +7,7 @@
     $conn = openCon();
     session_start();
 
-    $sqlCheckUsername = "select a_username from account where a_username = '".$username."'";
+    $sqlCheckUsername = "select a_username from taikhoan where a_username = '".$username."'";
     $resultCheckUsername = mysqli_query($conn, $sqlCheckUsername);
     if(mysqli_num_rows($resultCheckUsername) === 0) {
         $_SESSION['validate-forgot-pass'] = 'falseuser';
@@ -15,13 +15,13 @@
         exit();
     }
 
-    $sqlCheckQuestion = "SELECT a_question FROM account where a_username = '".$username."'";
+    $sqlCheckQuestion = "SELECT a_question from taikhoan where a_username = '".$username."'";
     $resultCheckQuestion = mysqli_query($conn, $sqlCheckQuestion);
     while($row = mysqli_fetch_assoc($resultCheckQuestion)){
         $resultCheckQ = $row['a_question'];
     }
 
-    $sqlCheckAnswer = "SELECT a_answer FROM account where a_username = '".$username."'";
+    $sqlCheckAnswer = "SELECT a_answer from taikhoan where a_username = '".$username."'";
     $resultCheckAnswer = mysqli_query($conn, $sqlCheckAnswer);
     while($row = mysqli_fetch_assoc($resultCheckAnswer)){
         $resultCheckA = $row['a_answer'];
