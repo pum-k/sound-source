@@ -9,5 +9,6 @@ if (isset($_REQUEST['value'])) {
     // echo $query;
     $result = mysqli_query($conn, $query);
     $myObj = mysqli_fetch_all($result);
+    
     echo json_encode( $myObj, JSON_UNESCAPED_UNICODE );
 }

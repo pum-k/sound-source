@@ -6,7 +6,7 @@
     $artist;
     $valueSearch = '%'.$_POST['search'].'%';
     $_SESSION['search'] = $_POST['search'];
-    $sqlTracks = "select baihat_ten,baihat_url,baihat_image, tacgia_ten FROM baihat as b inner join tacgia as t WHERE b.baihat_ten like '".$valueSearch."' and b.tacgia_id = t.tacgia_id";
+    $sqlTracks = "select baihat_ten,baihat_url,baihat_image, tacgia_ten FROM baihat as b inner join tacgia as t WHERE b.baihat_ten like '".$valueSearch."' and b.tacgia_id = t.tacgia_id and b.baihat_congkhai = 1";
     $resultTracks = mysqli_query($conn, $sqlTracks);
     $i = 0;
     if($resultTrack = mysqli_fetch_all($resultTracks)){
