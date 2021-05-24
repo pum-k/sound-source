@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  box-sizing: border-box;
+  color: #f2f2f2;
+}
+
+.ctn-main {
+  padding-top: 45px !important;
+}
+
+.profile-header {
+  height: 260px;
+  background: linear-gradient(
+    to right,
+    #403b4a,
+    #e7e9bb
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  display: flex;
+  padding: 15px;
+  position: relative;
+}
+
+.avatar {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: #213213;
+  margin: 30px 0;
+  background-size: 200px 200px;
+  border: 2px solid white;
+}
+
+.name {
+  margin: 30px 15px;
+  color: white;
+}
+
+.edit {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  transition: 0.3s;
+  color: black;
+  background-color: white;
+  height: 30px;
+  width: 115px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit:hover {
+  background-color: #fe9132;
+}
+
+.title-track {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.owner-tracks {
+  width: 1240px;
+  height: auto;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.track {
+  /* display: flex; */
+  text-align: center;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.track:hover {
+  transform: rotate(5deg);
+}
+
+.image {
+  width: 160px;
+  height: 160px;
+  background-size: 160px 160px;
+  background-color: brown;
+}
+
+.info {
+  margin-left: 15px;
+  width: auto;
+  min-width: 200px;
+  position: relative;
+}
+
+.edit-track {
+  background-color: #ffcc00;
+}
+
+.edit-track:hover {
+  background-color: #946a00;
+}
+
+.delete-track {
+  background-color: #ff3333;
+  margin-top: 15px;
+}
+
+.delete-track:hover {
+  background-color: #ad0000;
+}
+
+.control {
+  position: absolute;
+  bottom: 0;
+}
+
+.btn {
+  border: none;
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  display: block;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+.modal-edit-profile {
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: 0.3s;
+}
+
+.modal-edit-profile > .modal-content {
+  background-color: #fefefe;
+  width: 820px;
+  border: 1px solid #888;
+  padding: 20px;
+  margin: 50px auto;
+}
+
+.modal-edit-profile > .modal-content > .modal-header {
+  border-bottom: 1px solid #ddd;
+}
+
+.left {
+  width: 30%;
+  text-align: left;
+}
+
+.left > input[type="file"] {
+  width: 200px;
+}
+
+.right {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.right > input[type="text"] {
+  width: 550px;
+}
+
+.right > textarea {
+  resize: vertical;
+  width: 535px;
+  padding: 15px;
+}
+
+.modal-edit-profile > .modal-content > .modal-footer {
+  margin-top: 15px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.modal-control {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.modal-control > button,
+p {
+  height: 30px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.modal-control > button[type="submit"] {
+  background-color: #fe9132;
+}
+
+.modal-control > p {
+  background-color: grey;
+}
