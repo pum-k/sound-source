@@ -33,73 +33,44 @@
 
     <div class="ctn-main">
         <div class="profile-header">
-         <img class="avatar" src=""></img>
-            <div class="name">
-                <h1>Duong Dang Khoa</h1>
-                <p>your fucking bio</p>
-            </div>
+        <?php
+            session_start();
+            require './connection.php';
+            $conn = openCon();
+            mysqli_set_charset($conn, 'utf8');
+            $sql = 'SELECT tacgia_ten, img, bio FROM tacgia WHERE tacgia_id = '.$_SESSION["userId"].'';
+            $result = mysqli_query($conn, $sql);
+            while ($row = $result->fetch_assoc()) {
+                echo '<img class="avatar" src="'.$row['img'].'"></img>';
+                echo '<div class="name">';
+                echo "<h1>".$row['tacgia_ten']."</h1>";
+                echo "<p>".$row['bio']."</p>";
+                echo "</div>";
+            }
+        ?>
             <button class="edit" onclick="openModal()">Edit profile</button>
         </div>
 
         <div class="title-track"><h1>Your tracks</h1></div>
 
         <div class="owner-tracks">
-        <div class='track'>
-            <div class='image' style="background-image: url('')"></div>
-            <div class="info">
-                <h3>Track-name</h3>
-                <div class="control">
-                    <button class="btn edit-track">Edit</button>
-                    <button class="btn delete-track">Delete</button>
-                </div>
-            </div>
-        </div>
-        <div class='track'>
-            <div class='image' style="background-image: url('')"></div>
-            <div class="info">
-                <h3>Track-name</h3>
-                <div class="control">
-                    <button class="btn edit-track">Edit</button>
-                    <button class="btn delete-track">Delete</button>
-                </div>
-            </div>
-        </div><div class='track'>
-            <div class='image' style="background-image: url('')"></div>
-            <div class="info">
-                <h3>Track-name</h3>
-                <div class="control">
-                    <button class="btn edit-track">Edit</button>
-                    <button class="btn delete-track">Delete</button>
-                </div>
-            </div>
-        </div><div class='track'>
-            <div class='image' style="background-image: url('')"></div>
-            <div class="info">
-                <h3>Track-name</h3>
-                <div class="control">
-                    <button class="btn edit-track">Edit</button>
-                    <button class="btn delete-track">Delete</button>
-                </div>
-            </div>
-        </div><div class='track'>
-            <div class='image' style="background-image: url('')"></div>
-            <div class="info">
-                <h3>Track-name</h3>
-                <div class="control">
-                    <button class="btn edit-track">Edit</button>
-                    <button class="btn delete-track">Delete</button>
-                </div>
-            </div>
-        </div><div class='track'>
-            <div class='image' style="background-image: url('')"></div>
-            <div class="info">
-                <h3>Track-name</h3>
-                <div class="control">
-                    <button class="btn edit-track">Edit</button>
-                    <button class="btn delete-track">Delete</button>
-                </div>
-            </div>
-        </div>
+            <?php
+                mysqli_set_charset($conn, 'utf8');
+                $sql = 'SELECT baihat_ten, baihat_image FROM baihat WHERE tacgia_id = '.$_SESSION["userId"].'';
+                $result = mysqli_query($conn, $sql);
+                while ($row = $result->fetch_assoc()) {
+                echo '<div class="track">
+                    <div class="image" style="background-image: url('.$row['baihat_image'].')"></div>
+                    <div class="info">
+                    <h3>'. $row['baihat_ten'] .'</h3>
+                    <div class="control">
+                    <button class="btn edit-track" onclick="openModalEdit(event)">Edit</button>
+                    <button class="btn delete-track" onclick="handleDelete(event)">Delete</button>
+                    </div>
+                    </div>
+                    </div>';
+                }
+            ?>
         </div>
     </div>
 
@@ -132,6 +103,24 @@
             </div>
         </form>
     </div>
+
+    <div class="modal-edit-profile" id="modal-track">
+        <div action="" class="modal-content">
+            <div class="modal-header">
+                <h3>Edit track</h3>
+            </div>
+            <div class="modal-body">
+                <label for="">Name's Track: </label>
+                <input type="text" id="new_baihat_ten">
+            </div>
+            <div class="modal-footer">
+                <div class="modal-control">
+                    <button type="submit" onclick="handleEdit()">Save</button> 
+                    <p type="cancel" onclick="closeModalEdit()">Cancel</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
 <script src="./handleUser.js"></script>
@@ -153,7 +142,7 @@
     // >>> modal >>>
     const openModal = () => {
         const modal = document.getElementById("modal");
-       modal.style.visibility = "visible";
+        modal.style.visibility = "visible";
         modal.style.opacity = 1;
     }
     const closeModal = () => {
@@ -171,19 +160,108 @@
     }
     // <<<
 
-    // >>> check success >>>
-    let validate = getValidate('edit-user');
-    if(validate) {
-        notification('success', 'Update your profile successfully');
-        deleteValidate('edit-user');
-    } 
-    
-    if (validate === false) {
-        notification('error', 'Fail to update your profile, please try again!');
-        deleteValidate('edit-user');
+    // >>> modal edit track >>>
+    const openModalEdit = (e) => {
+        const trackName = e.target.parentElement.parentElement.children[0].textContent;
+        sessionStorage.setItem('track-to-edit', trackName);
+        const modal = document.getElementById("modal-track");
+        modal.style.visibility = "visible";     
+        modal.style.opacity = 1;
+    }
+    const closeModalEdit = () => {
+        sessionStorage.setItem('track-to-edit', '');
+        const modal = document.getElementById("modal-track");
+        modal.style.visibility = "hidden";     
+        modal.style.opacity = 0;
     }
     // <<<
 
+    // >>> handle edit >>>
+        const handleEdit = async () => {
+            const baihat_ten = sessionStorage.getItem('track-to-edit');
+            const username = sessionStorage.getItem('username');
+            await $.post(
+                'edit-track.php',
+                {
+                    "baihat_ten": baihat_ten,
+                    "new_baihat_ten": $('#new_baihat_ten').val(),
+                    "username": username
+                },
+                (res) => {
+                    // >>> check success edit user >>>
+                    if(res) {
+                        setTimeout(async () => {
+                            await setValidate('edit-track', true);
+                            window.location.reload();
+                        },500);
+                    } 
+                    
+                    if (res === false) {
+                        setTimeout(async () => {
+                            await setValidate('edit-track', false);
+                            window.location.reload();
+                        },500);
+                    }
+                    // <<<
+                },
+                'json'
+            );
+            closeModalEdit();
+        }
+    // <<<
 
+    // >>> handle delete >>>
+        const handleDelete = async (e) => {
+            console.log("run");
+            let confirmDelete = confirm('Are you sure to delete this track?');
+            if(confirmDelete){
+                const trackName = e.target.parentElement.parentElement.children[0].textContent;
+                await $.post(
+                    'delete-track.php',
+                    {baihat_ten: trackName},
+                    (res) => {
+                        if(res) {
+                            setTimeout(async () => {
+                                await setValidate('delete-track', true);
+                                window.location.reload();
+                            },500);
+                        } 
+                            
+                        if (res === false) {
+                            setTimeout(async () => {
+                                await setValidate('delete-track', false);
+                                window.location.reload();
+                            },500);
+                        }
+                    },
+                    'json'
+                );
+            }
+        }
+    // <<<
+
+    // >>> check validate >>>
+        // >>> update profile
+            if(getValidate('edit-user')) {
+                notification('success', "Update your profile successfully!");
+            } else if (getValidate('edit-user') === false) {
+                notification('error', "Fail to update your profile!");
+            }
+        // <<<
+        // >>> update track
+            if(getValidate('edit-track')) {
+                    notification('success', "Update your track successfully!");
+            } else if (getValidate('edit-track') === false) {
+                notification('error', "Fail to update your track!");
+            }
+        // <<<
+        // >>> delete-track
+            if(getValidate('delete-track')) {
+                    notification('success', "Detele your track successfully!");
+            } else if (getValidate('delete-track') === false) {
+                notification('error', "Fail to Delete your track!");
+            }
+        // <<<
+    //
 </script>
 </html>

@@ -14,7 +14,7 @@
         <p style="margin-right: 5px">If you haven't an account yet?</p>
         <a href="./signup.php">Click here</a>
       </div>
-      <form class="form-login" action="handleLogin.php" method="POST">
+      <form class="form-login" action="handle-login.php" method="POST">
         <input
           autocomplete="off"
           type="text"
