@@ -5,6 +5,7 @@ body {
     Garuda, Verdana, Tahoma, sans-serif;
   font-weight: 100;
   box-sizing: border-box;
+  position: relative;
 }
 *,
 p,
@@ -22,7 +23,7 @@ a {
   max-width: 1240px;
   margin: 0 auto;
   background-color: white;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 100px;
 }
 
@@ -40,6 +41,11 @@ a {
   align-items: center;
   margin: 0 auto;
   position: relative;
+  justify-content: space-between;
+}
+
+.direct {
+  display: flex;
 }
 
 .title {
@@ -67,7 +73,7 @@ a {
   height: 45px;
   min-width: 115px;
   width: auto;
-  border-right: 1.5px solid black;
+  /* border-right: 1.5px solid black; */
   padding: 0 10px;
 }
 
@@ -76,7 +82,6 @@ a {
 }
 
 .item-search {
-  margin-left: 250px;
   border: none;
   display: flex;
   align-items: center;
@@ -84,10 +89,7 @@ a {
 }
 
 .item-user {
-  position: absolute;
-  margin-left: 280px;
   color: white;
-  right: 0;
 }
 
 .item-user > button {
@@ -98,7 +100,7 @@ a {
   width: 70px;
   cursor: pointer;
   transition: 0.3s;
-} 
+}
 
 .item-user > button:hover {
   border-color: #fe9132;

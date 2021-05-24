@@ -10,7 +10,7 @@
     include './connection.php';
     $conn = openCon();
 
-    $sqlCheckUsername = "SELECT a_username FROM account where a_username = '".$username."'";
+    $sqlCheckUsername = "SELECT a_username from taikhoan where a_username = '".$username."'";
     $resultCheckUsername = mysqli_query($conn, $sqlCheckUsername);
     if(mysqli_num_rows($resultCheckUsername) === 0) {
         $sql = "INSERT INTO account (a_username, a_password, a_question, a_answer) VALUES ('".$username."', '".$password."', '".$question."', '".$answer."')";

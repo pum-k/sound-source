@@ -14,7 +14,7 @@
         <p style="margin-right: 5px">If you haven't an account yet?</p>
         <a href="./signup.php">Click here</a>
       </div>
-      <form class="form-login" action="handleLogin.php" method="POST">
+      <form class="form-login" action="handle-login.php" method="POST">
         <input
           autocomplete="off"
           type="text"
@@ -42,7 +42,7 @@
       if(validate === true){
         notification('success',"Sign in success, please wait...");
         setTimeout(()=>{
-          window.location.replace("./index.php");
+          location.replace("./index.php");
         },3500);
       }
       if(validate === false)

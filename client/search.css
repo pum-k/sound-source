@@ -38,11 +38,6 @@ body {
   padding: 0 15px;
 }
 
-.search-item {
-  width: 100%;
-  text-align: left;
-}
-
 
 .total-search {
   color: #bbb;
@@ -64,7 +59,9 @@ body {
 .people .avatar {
   width: 160px;
   height: 160px;
-  background-size: cover;
+  background-color: brown;
+  background-size: 160px 160px;
+  background-repeat: no-repeat;
   border-radius: 50%;
 }
 
@@ -100,7 +97,8 @@ body {
   width: 160px;
   height: 160px;
   background-color: brown;
-  background-size: cover !important;
+  background-size: 160px 160px;
+  background-repeat: no-repeat;
 }
 #index_music {
   text-align: center;

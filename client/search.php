@@ -20,14 +20,13 @@
         <a href="./index.php">Home</a>
       </div>
       <div class="item">
-        <a href="#">Library</a>
-      </div>
-      <div class="item">
         <a href="upload.php">Upload</a>
       </div>
       <div class="item item-search">
         <input type="search" class="search_Song" onkeydown="searchSong(event)" />
         <i class="fas fa-search"></i>
+      </div>
+      <div class="item-user" id="user">
       </div>
     </div>
   </div>
@@ -152,6 +151,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
 </script>
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
+<script src="./handleUser.js"></script>
 <script>
   function playsong(e) {
     var playerimage = document.getElementsByClassName('player-img')[0];
@@ -247,6 +247,8 @@
     console.log(e.target.value);
   }
   const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
+
+  loadUser("user", true);
 </script>
 
 </html>
