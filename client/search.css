@@ -71,8 +71,13 @@ body {
 
 .people-name {
   font-size: 16px;
+  cursor: pointer;
 }
-
+.people-name:hover {
+  /* background-color: red;
+   */
+   text-decoration: underline;
+}
 .info i {
   font-size: 13px;
   color: #aaa;
@@ -83,8 +88,11 @@ body {
   padding: 10px 0;
   margin: 10px 0;
   align-items: center;
+  cursor: pointer;
 }
-
+.song:hover{
+ text-decoration: underline;
+}
 .song .avatar {
   width: 160px;
   height: 160px;
@@ -92,7 +100,17 @@ body {
   background-size: 160px 160px;
   background-repeat: no-repeat;
 }
-
+#index_music {
+  text-align: center;
+}
+#index_music li {
+  display: inline ;
+  padding: 2px 5px;
+}
+#index_music li:hover {
+  background-color: orange;
+  cursor: pointer;
+}
 .artist {
   font-size: 14px;
   color: #aaa;
@@ -128,3 +146,46 @@ body {
 }
 
 
+
+.play {
+  font-size: 40px;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+  right: 41%;
+  z-index: 1;
+  opacity: 0;
+  transition: 0.3s;
+  display: none;
+  pointer-events: none;
+}
+
+.player {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  background-color: #1b1b1b;
+  align-items: center;
+}
+
+.player > audio {
+  width: 800px;
+}
+
+.player-info {
+  color: white;
+  margin-left: 10px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.player-img {
+  background-image: url("https://i1.sndcdn.com/artworks-voe0CibrOPXN3rnt-2xSpZA-t200x200.jpg");
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+}

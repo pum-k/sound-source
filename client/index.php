@@ -79,9 +79,9 @@
     </div>
     <div id="div_index">
       <ul id="index_music">
-        <li value="1" onclick="changePage(this.value)">1</li>
-        <li value="2" onclick="changePage(this.value)">2</li>
-        <li value="3" onclick="changePage(this.value)">3</li>
+        <li value="1" onclick="changePage(event)">1</li>
+        <li value="2" onclick="changePage(event)">2</li>
+        <li value="3" onclick="changePage(event)">3</li>
       </ul>
     </div>
   </div>
@@ -100,7 +100,14 @@
   <script src="./handleUser.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script type="text/javascript">
-    function changePage(index) {
+    function changePage(e) {
+      let index_music = document.getElementById('index_music');
+      console.log(index_music.children[0]);
+      for(var i = 0; i<index_music.children.length; i++) {
+        index_music.children[i].style.backgroundColor = 'white';
+      }
+      index = e.target.value;
+      e.target.style.backgroundColor = "orange";
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange =  function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -109,7 +116,6 @@
           song_body.innerHTML = '';
           let song;
           value.map(item => {
-            console.log(item);
             song = `<button class="song" id="2" onclick="myFunction(this)">
             <i class="fas fa-play play song__play" aria-hidden="true">
             </i><div class="song-img" style="background-image: url(${item['baihat_image']});">
@@ -132,8 +138,6 @@
         a.css("opacity", "0");
       }
     )
-
-
     function myFunction(id) {
       var target = id.children[1];
       var playerimage = document.getElementsByClassName('player-img')[0];
@@ -147,11 +151,9 @@
     }
 
     function ChangePageSearch(event) {
-      // 
       let input = document.getElementsByClassName('input-search')[0];
       if (event.keyCode == 13) {
         event.preventDefault();
-        console.log('hello');
         window.location.replace('http://localhost/sound-source/client/search.php?value=' + input.value);
       }
     }
