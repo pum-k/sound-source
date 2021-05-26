@@ -33,7 +33,12 @@
 
   <div class="ctn-main" style="margin-bottom: 150px;">
     <div class="value">
-      <h2 class="found-results">Search results for
+      <h2>Search results for
+        <?php
+        if (isset($_REQUEST['value'])) {
+          echo '<span class="found-results" value="'.$_REQUEST['value'].'">'.$_REQUEST["value"]. '</span>';
+        }
+        ?>
       </h2>
     </div>
     <div class="results">
@@ -96,13 +101,12 @@
         </div>
         <div id="div_index_People">
           <ul id="index_music">
-            <li value="1" onclick="changePagePeople(this.value)">1</li>
-            <li value="2" onclick="changePagePeople(this.value)">2</li>
-            <li value="3" onclick="changePagePeople(this.value)">3</li>
+            <li value="1" onclick="changePagePeople(event)">1</li>
+            <li value="2" onclick="changePagePeople(event)">2</li>
+            <li value="3" onclick="changePagePeople(event)">3</li>
           </ul>
         </div>
         <div class="ctn-search-item" id="renderSong">
-
           <?php
           $newCount = 0;
           if (isset($_REQUEST['value'])) {
@@ -153,11 +157,12 @@
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
 <script src="./handleUser.js"></script>
 <script>
+  let test = document.getElementsByClassName('found-results')[0].textContent;
+  console.log(test);
   function playsong(e) {
     var playerimage = document.getElementsByClassName('player-img')[0];
     var playerinfo = document.getElementsByClassName('player-info')[0];
     playerimage.style.backgroundImage = "url(" + e.children[3].textContent + ")";
-    console.log(playerimage.style.backgroundImage);
     playerinfo.children[0].textContent = e.children[0].textContent;
     playerinfo.children[1].textContent = e.children[1].textContent;
     var songaudio = document.getElementsByClassName('song_audio');
@@ -165,14 +170,12 @@
     document.getElementsByClassName('song_audio')[0].load();
   }
 
-
-
   function searchSong(event) {
     var song = document.getElementsByClassName('search_Song')[0];
     if (event.keyCode == 13) {
       value = song.value;
-      console.log(value);
-      let find_what = document.getElementsByClassName('found-results')[0].innerHTML = 'Search results for: ' + value;
+      let find_what = document.getElementsByClassName('found-results')[0].innerHTML = value;
+      document.getElementsByClassName('found-results').value = value
       renderSongInfo(value);
       renderPeopleInfo(value);
     }
@@ -189,8 +192,9 @@
         if (value.length > 0) {
           renderPeople.innerHTML = '';
           let htmlRender;
-          value.forEach(item => {
-            htmlRender = `
+          value.forEach((item, index) => {
+            if (index < 5) {
+              htmlRender = `
             <div class='people'>
                 <div class='avatar' style="background-image: url('${item[2]}')"></div>
                 <div class="info">
@@ -198,8 +202,9 @@
                  <i>10 tracks</i>
                 </div>
               </div>
-              `;
-            renderPeople.innerHTML += htmlRender;
+            `;
+              renderPeople.innerHTML += htmlRender;
+            }
           })
         } else {
           renderPeople.innerHTML = 'không tìm thấy người dùng nào';
@@ -220,17 +225,21 @@
         if (value.length > 0) {
           renderSong.innerHTML = '';
           let htmlRender;
-          value.forEach(item => {
-            htmlRender = `
-                <div class='song'>
+          value.forEach((item, index) => {
+            if (index < 5) {
+              htmlRender = `
+                <div class='song' onclick='playsong(this)'>
                   <div class='avatar' style="background-image: url('${item[2]}')"></div>
                   <div class="info">
                     <p>${item[0]}</p>
                     <p class='artist'>${item[3]}</p>
                   </div>
+                  <div class='valuebaihat' hidden=true>${item[1]}</div>
+                  <div class='urlbaihat' hidden=true>${item[2]}</div>
                 </div>
               `;
-            renderSong.innerHTML += htmlRender;
+              renderSong.innerHTML += htmlRender;
+            }
           })
         } else {
           renderSong.innerHTML = 'không có bài hát nào được tìm thấy';
@@ -240,11 +249,83 @@
     xmlhttp.open("GET", "searchSong.php?value=" + value, true);
     xmlhttp.send();
   }
-  function changePageSong(e){
-    console.log(e.target.value);
+
+  function changePageSong(e) {
+    let value = document.getElementsByClassName('found-results')[0].textContent;
+    console.log(value);
+    let renderSong = document.getElementById('renderSong');
+    let start = (+e.target.value - 1) * 5;
+    let end = (+e.target.value) * 5
+    if (value != undefined) {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = async function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let result = JSON.parse(this.responseText);
+          console.log(result);
+          if (start < result.length) {
+            renderSong.innerHTML = '';
+            let htmlRender;
+            result.forEach((item, index) => {
+              if (start < index && index <= end) {
+                htmlRender = `
+                <div class='song' onclick='playsong(this)'>
+                  <div class='avatar' style="background-image: url('${item[2]}')"></div>
+                  <div class="info">
+                    <p>${item[0]}</p>
+                    <p class='artist'>${item[3]}</p>
+                  </div>
+                  <div class='valuebaihat' hidden=true>${item[1]}</div>
+                  <div class='urlbaihat' hidden=true>${item[2]}</div>
+                </div>
+              `;
+                renderSong.innerHTML += htmlRender;
+              }
+            })
+          } else {
+            renderSong.innerHTML = 'không có bài hát nào được tìm thấy';
+          }
+        }
+      }
+    }
+    xmlhttp.open("GET", "searchSong.php?value=" + value, true);
+    xmlhttp.send();
   }
-  function changePagePeople(e){
-    console.log(e.target.value);
+
+  function changePagePeople(e) {
+    let value =document.getElementsByClassName('found-results')[0].textContent;
+    let renderSong = document.getElementById('renderPeople');
+    let start = (+e.target.value - 1) * 5;
+    let end = (+e.target.value) * 5
+    if (value != undefined) {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = async function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let result = JSON.parse(this.responseText);
+          if (start < result.length) {
+            renderSong.innerHTML = '';
+            let htmlRender;
+            result.forEach((item, index) => {
+              if (start < index && index <= end) {
+                htmlRender = `
+            <div class='people'>
+                <div class='avatar' style="background-image: url('${item[2]}')"></div>
+                <div class="info">
+                  <p class='people-name'>${item[1]}</p>
+                 <i>10 tracks</i>
+                </div>
+              </div>
+            `;
+                renderSong.innerHTML += htmlRender;
+              }
+            })
+          } else {
+            renderSong.innerHTML = 'không có ca sĩ nào được tìm thấy';
+          }
+        }
+      }
+    }
+    xmlhttp.open("GET", "searchpeople.php?value=" + value, true);
+    xmlhttp.send();
   }
   const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
 
