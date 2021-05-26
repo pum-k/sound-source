@@ -100,14 +100,29 @@ body {
   background-size: 160px 160px;
   background-repeat: no-repeat;
 }
-#index_music {
+#index_people_music {
   text-align: center;
 }
-#index_music li {
+#index_song_music {
+  text-align: center;
+}
+#index_people_music > li {
   display: inline ;
   padding: 2px 5px;
 }
-#index_music li:hover {
+#index_song_music > li {
+  display: inline ;
+  padding: 2px 5px;
+}
+#index_people_music > li {
+  display: inline ;
+  padding: 2px 5px;
+}
+#index_people_music > li:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+#index_song_music > li:hover {
   background-color: orange;
   cursor: pointer;
 }
