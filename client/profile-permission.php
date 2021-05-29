@@ -1,5 +1,17 @@
+<?php
+require './connection.php';
+$conn = openCon();
+mysqli_set_charset($conn, 'utf8');
+if (isset($_REQUEST['value'])) {
+    $query = "select * from `tacgia` WHERE tacgia_ten = '" . $_REQUEST['value'] . "'";
+    $people = mysqli_query($conn, $query);
+    $array = mysqli_fetch_array($people);
+    // echo $query;
+};
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="./navbar.css" />
     <meta charset="UTF-8">
@@ -8,6 +20,7 @@
     <title>SoundSource</title>
     <link rel="stylesheet" href="./profile-permission.css" />
 </head>
+
 <body>
     <div class="navbar">
         <div class="nav-content">
@@ -23,7 +36,7 @@
                 </div>
             </div>
             <div class="item item-search">
-                <input type="search" class="search_Song" />
+                <input type="search" class="search_Song" onkeydown="ChangePageSearch(event)" />
                 <i class="fas fa-search"></i>
             </div>
             <div class="item-user" id="user">
@@ -33,23 +46,35 @@
 
     <div class="ctn-main">
         <div class="profile-header">
-         <img class="avatar" src=""></img>
+            <img class="avatar" src="<?php echo $array['tacgia_image'] ?>"></img>
             <div class="name">
-                <h1>Duong Dang Khoa</h1>
+                <h1><?php echo $array['tacgia_ten'] ?></h1>
                 <p>your fucking bio</p>
             </div>
         </div>
 
-        <div class="title-track"><h1>Tracks</h1></div>
+        <div class="title-track">
+            <h1>Tracks</h1>
+        </div>
 
         <div class="owner-tracks">
-            <div class='track'>
-                <div class='image' style="background-image: url('')"></div>
-                    <h3>Track-name</h3>
-            </div>
+            <?php
+            $conn = openCon();
+            $newQuery = 'Select * from `baihat` where tacgia_id =' . $array['tacgia_id'] . '';
+            $result = mysqli_query($conn, $newQuery);
+            if ($result) {
+                while ($row = $result->fetch_assoc()) {
+
+                    echo "<div class='track'>";
+                    echo "<div class='image' style='background-image: url(" . $row['baihat_image'] . ")'>";
+                    echo "</div>";
+                    echo "<h3> " . $row['baihat_ten'] . "</h3>";
+                    echo "</div>";
+                }
+            }
+            ?>
         </div>
     </div>
-
     <div class="modal-edit-profile" id="modal">
         <form class="modal-content" action="./handle-edit-user.php" method="post" enctype="multipart/form-data">
             <div class="modal-body">
@@ -63,14 +88,14 @@
                             <label>Display name<font color="red">*</font>:</label>
                             <input type="text" name="displayName" id="displayName" value="" required minLength="5">
                             <label>Bio:</label>
-                            <textarea name="bio" id="bio" maxlength = "150" placeholder="Your bio here... (less than 150 characters)"></textarea>
+                            <textarea name="bio" id="bio" maxlength="150" placeholder="Your bio here... (less than 150 characters)"></textarea>
                         </th>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
                 <div class="modal-control">
-                    <button type="submit">Save</button> 
+                    <button type="submit">Save</button>
                     <p type="cancel" onclick="closeModal()">Cancel</p>
                 </div>
             </div>
@@ -84,10 +109,10 @@
 <script src="Notification.js"></script>
 <script>
     // check is logged >>>
-    if(!sessionStorage.getItem('username')){
-      window.location.replace('http://localhost/sound-source/client/index.php');
+    if (!sessionStorage.getItem('username')) {
+        window.location.replace('http://localhost/sound-source/client/index.php');
     }
-    const notLoggedIn =  "window.location = 'http://localhost/sound-source/client/login.php'";
+    const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
     loadUser("user", false);
     // <<<
 
@@ -97,37 +122,43 @@
     // >>> modal >>>
     const openModal = () => {
         const modal = document.getElementById("modal");
-       modal.style.visibility = "visible";
+        modal.style.visibility = "visible";
         modal.style.opacity = 1;
     }
     const closeModal = () => {
         const modal = document.getElementById("modal");
-        modal.style.visibility = "hidden";     
+        modal.style.visibility = "hidden";
         modal.style.opacity = 0;
     }
     // <<<
-    
+    function ChangePageSearch(event) {
+        let input = document.getElementsByClassName('search_Song')[0];
+        // var song = document.getElementsByClassName('search_Song')[0];
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            window.location.replace('http://localhost/sound-source/client/search.php?value=' + input.value);
+        }
+    }
     // >>> upload new uploadNewAvatar >>>
     const input = document.getElementById("uploadNewAvatar");
     input.onchange = (e) => {
         const [file] = input['files'];
-        if(file) document.getElementById("avatar").src = URL.createObjectURL(file);
+        if (file) document.getElementById("avatar").src = URL.createObjectURL(file);
     }
     // <<<
 
     // >>> check success >>>
     let validate = getValidate('edit-user');
-    if(validate) {
+    if (validate) {
         notification('success', 'Update your profile successfully');
         deleteValidate('edit-user');
-    } 
-    
+    }
+
     if (validate === false) {
         notification('error', 'Fail to update your profile, please try again!');
         deleteValidate('edit-user');
     }
     // <<<
-
-
 </script>
+
 </html>

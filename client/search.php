@@ -36,7 +36,7 @@
       <h2>Search results for
         <?php
         if (isset($_REQUEST['value'])) {
-          echo '<span class="found-results" value="'.$_REQUEST['value'].'">'.$_REQUEST["value"]. '</span>';
+          echo '<span class="found-results" value="' . $_REQUEST['value'] . '">' . $_REQUEST["value"] . '</span>';
         }
         ?>
       </h2>
@@ -47,18 +47,6 @@
           <li>
             <button class="btn-type active">
               <i class="fas fa-search"></i> Everything
-            </button>
-            <div class="triangle-right"></div>
-          </li>
-          <li>
-            <button class="btn-type">
-              <i class="fas fa-user-friends"></i> People
-            </button>
-            <div class="triangle-right"></div>
-          </li>
-          <li>
-            <button class="btn-type">
-              <i class="fas fa-music"></i> Tracks
             </button>
             <div class="triangle-right"></div>
           </li>
@@ -82,9 +70,9 @@
           if (isset($_REQUEST['value'])) {
             $value = '%' . $_REQUEST['value'] . '%';
             $query = "select * from `tacgia` WHERE tacgia_ten LIKE '" . $value . "'";
-            $result = mysqli_query($conn, $query);
-            while ($row = $result->fetch_assoc()) {
-              echo  "<div class='people'>";
+            $people = mysqli_query($conn, $query);
+            while ($row = $people->fetch_assoc()) {
+              echo  "<div class='people' onclick='changePageToProfile(this.lastElementChild)'>";
               echo  "<div class='avatar' style='background-image: url(" . $row['tacgia_image'] . ")'></div>";
               echo   "<div class='info'>";
               echo   " <p class='people-name'>" . $row['tacgia_ten'] . "</p>";
@@ -100,19 +88,32 @@
           ?>
         </div>
         <div id="div_index_People">
-          <ul id="index_music">
-            <li value="1" onclick="changePagePeople(event)">1</li>
-            <li value="2" onclick="changePagePeople(event)">2</li>
-            <li value="3" onclick="changePagePeople(event)">3</li>
-          </ul>
+          <?php
+          echo '<ul id="index_people_music">';
+          $numrows =  mysqli_num_rows($people);
+          $countpeople = 0;
+          while ($numrows > 5) {
+            $numrows -= 5;
+            $countpeople++;
+          }
+          if ($numrows > 0) {
+            $countpeople++;
+          }
+          if ($countpeople > 1) {
+            for ($x = 1; $x <=  $countpeople; $x++) {
+              echo '<li value=' . $x . ' onclick="changePagePeople(event)">' . $x . '</li>';
+            }
+          }
+          echo '</ul>'
+          ?>
         </div>
         <div class="ctn-search-item" id="renderSong">
           <?php
           $newCount = 0;
           if (isset($_REQUEST['value'])) {
             $query = "select baihat_ten,baihat_url,baihat_image, tacgia_ten FROM baihat as b inner join tacgia as t WHERE b.baihat_ten like '$value' and b.tacgia_id = t.tacgia_id";
-            $result = mysqli_query($conn, $query);
-            while ($row = $result->fetch_assoc()) {
+            $song = mysqli_query($conn, $query);
+            while ($row = $song->fetch_assoc()) {
               echo "<div class='song' onclick='playsong(this)' value='" . $row['baihat_ten'] . "'>";
               echo   "<div class='avatar' style='background-image: url(" . $row['baihat_image'] . ")' value='" . $row['baihat_ten'] . "'></div>";
               echo  "<div class='info'>";
@@ -131,11 +132,26 @@
           ?>
         </div>
         <div id="div_index_Song">
-          <ul id="index_music">
-            <li value="1" onclick="changePageSong(event)">1</li>
-            <li value="2" onclick="changePageSong(event)">2</li>
-            <li value="3" onclick="changePageSong(event)">3</li>
-          </ul>
+          <?php
+          echo '<ul id="index_song_music">';
+          $numrows =  mysqli_num_rows($song);
+          $countsong = 0;
+
+          while ($numrows > 5) {
+            $numrows -= 5;
+            $countsong++;
+          }
+          if ($numrows > 0) {
+            $countsong++;
+          }
+          // echo $countpeople;
+          if ($countsong > 1) {
+            for ($x = 1; $x <=  $countsong; $x++) {
+              echo '<li value=' . $x . ' onclick="changePageSong(event)">' . $x . '</li>';
+            }
+          }
+          echo '</ul>'
+          ?>
         </div>
       </div>
     </div>
@@ -157,8 +173,12 @@
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
 <script src="./handleUser.js"></script>
 <script>
-  let test = document.getElementsByClassName('found-results')[0].textContent;
-  console.log(test);
+  function changePageToProfile(e){
+    // console.log(e.firstElementChild.textContent);
+    let target = e.firstElementChild.textContent
+    window.location.replace('http://localhost/sound-source/client/profile-permission.php?value=' + target);
+  }
+
   function playsong(e) {
     var playerimage = document.getElementsByClassName('player-img')[0];
     var playerinfo = document.getElementsByClassName('player-info')[0];
@@ -195,7 +215,7 @@
           value.forEach((item, index) => {
             if (index < 5) {
               htmlRender = `
-            <div class='people'>
+            <div class='people' onclick="changePageToProfile(this.lastElementChild)">
                 <div class='avatar' style="background-image: url('${item[2]}')"></div>
                 <div class="info">
                   <p class='people-name'>${item[1]}</p>
@@ -206,6 +226,24 @@
               renderPeople.innerHTML += htmlRender;
             }
           })
+          // render lai index phan trang
+          let indexsearch = document.getElementById('index_people_music');
+          let length = value.length;
+          let html = '';
+          indexsearch.innerHTML = '';
+          let count = 0;
+          while (length > 5) {
+            length -= 5;
+            count++;
+          }
+          if (length > 0) {
+            count++;
+          }
+
+          for (var i = 1; i <= count; i++) {
+            html += '<li value=' + i + ' onclick="changePagePeople(event)">' + i + '</li>';
+          }
+          indexsearch.innerHTML = html;
         } else {
           renderPeople.innerHTML = 'không tìm thấy người dùng nào';
         }
@@ -221,6 +259,7 @@
     xmlhttp.onreadystatechange = async function() {
       if (this.readyState == 4 && this.status == 200) {
         let value = JSON.parse(this.responseText);
+        console.log(value.length);
         let found_tracks = document.getElementsByClassName('found-tracks')[0].innerHTML = 'Found ' + value.length + ' Tracks';
         if (value.length > 0) {
           renderSong.innerHTML = '';
@@ -241,6 +280,22 @@
               renderSong.innerHTML += htmlRender;
             }
           })
+          let indexsearch = document.getElementById('index_song_music');
+          let length = value.length;
+          let html = '';
+          indexsearch.innerHTML = '';
+          let count = 0;
+          while (length > 5) {
+            length -= 5;
+            count++;
+          }
+          if (length > 0) {
+            count++;
+          }
+          for (var i = 1; i <= count; i++) {
+            html += '<li value=' + i + ' onclick="changePageSong(event)">' + i + '</li>';
+          }
+          indexsearch.innerHTML = html;
         } else {
           renderSong.innerHTML = 'không có bài hát nào được tìm thấy';
         }
@@ -292,7 +347,7 @@
   }
 
   function changePagePeople(e) {
-    let value =document.getElementsByClassName('found-results')[0].textContent;
+    let value = document.getElementsByClassName('found-results')[0].textContent;
     let renderSong = document.getElementById('renderPeople');
     let start = (+e.target.value - 1) * 5;
     let end = (+e.target.value) * 5
