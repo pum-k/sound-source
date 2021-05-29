@@ -1,3 +1,14 @@
+<?php
+require './connection.php';
+$conn = openCon();
+mysqli_set_charset($conn, 'utf8');
+if (isset($_REQUEST['value'])) {
+    $query = "select * from `tacgia` WHERE tacgia_ten = '" . $_REQUEST['value'] . "'";
+    $people = mysqli_query($conn, $query);
+    $array = mysqli_fetch_array($people);
+    // echo $query;
+};
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,9 +46,9 @@
 
     <div class="ctn-main">
         <div class="profile-header">
-            <img class="avatar" src=""></img>
+            <img class="avatar" src="<?php echo $array['tacgia_image'] ?>"></img>
             <div class="name">
-                <h1>Duong Dang Khoa</h1>
+                <h1><?php echo $array['tacgia_ten'] ?></h1>
                 <p>your fucking bio</p>
             </div>
         </div>
@@ -47,13 +58,23 @@
         </div>
 
         <div class="owner-tracks">
-            <div class='track'>
-                <div class='image' style="background-image: url('')"></div>
-                <h3>Track-name</h3>
-            </div>
+            <?php
+            $conn = openCon();
+            $newQuery = 'Select * from `baihat` where tacgia_id =' . $array['tacgia_id'] . '';
+            $result = mysqli_query($conn, $newQuery);
+            if ($result) {
+                while ($row = $result->fetch_assoc()) {
+
+                    echo "<div class='track'>";
+                    echo "<div class='image' style='background-image: url(" . $row['baihat_image'] . ")'>";
+                    echo "</div>";
+                    echo "<h3> " . $row['baihat_ten'] . "</h3>";
+                    echo "</div>";
+                }
+            }
+            ?>
         </div>
     </div>
-
     <div class="modal-edit-profile" id="modal">
         <form class="modal-content" action="./handle-edit-user.php" method="post" enctype="multipart/form-data">
             <div class="modal-body">
