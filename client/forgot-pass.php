@@ -29,17 +29,20 @@
 </body>
 <script src="./Notification.js"></script>
 <script>
-    let validate = <?php session_start(); echo json_encode($_SESSION["validate-forgot-pass"], JSON_HEX_TAG); ?>;
-    if(validate === true) 
-        notification('success',"Your password has been updated");
-    if(validate === false)
-        notification('error',"Your answer is incorrect, please try again");
-    if(validate === 'falseuser')
-        notification('error',"Your username is invalid, please try again");
 
-    <?php
-        $_SESSION["validate-forgot-pass"] = '';  
-    ?>
+    if(getValidate('validate-forgot-pass') === 'true'){
+        notification('success',"Your password has been updated");
+        setTimeout(()=>{
+          location.replace("./login.php");
+        },3500);
+    }
+    if(getValidate('validate-forgot-pass') === 'false'){
+        notification('error',"Your answer is incorrect, please try again");
+      }
+      if(getValidate('validate-forgot-pass') === 'falseuer'){
+        notification('error',"Your username is invalid, please try again");
+      }
+    deleteValidate('validate-forgot-pass');
 
     const checkConfirmPassword = () => {
         let password = document.getElementsByName('newPassword')[0];

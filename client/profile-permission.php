@@ -46,10 +46,10 @@ if (isset($_REQUEST['value'])) {
 
     <div class="ctn-main">
         <div class="profile-header">
-            <img class="avatar" src="<?php echo $array['tacgia_image'] ?>"></img>
+            <img class="avatar" src="<?php echo $array['img'] ?>"></img>
             <div class="name">
                 <h1><?php echo $array['tacgia_ten'] ?></h1>
-                <p>your fucking bio</p>
+                <p><?php echo $array['bio'] ?></p>
             </div>
         </div>
 
@@ -64,11 +64,12 @@ if (isset($_REQUEST['value'])) {
             $result = mysqli_query($conn, $newQuery);
             if ($result) {
                 while ($row = $result->fetch_assoc()) {
-
-                    echo "<div class='track'>";
+                    echo "<div class='track' onclick='playsong(this)'>";
                     echo "<div class='image' style='background-image: url(" . $row['baihat_image'] . ")'>";
                     echo "</div>";
                     echo "<h3> " . $row['baihat_ten'] . "</h3>";
+                    echo "<div class='valuebaihat' hidden=true>" . $row['baihat_url'] . " </div>";
+                    echo "<div class='urlbaihat' hidden=true>" . $row['baihat_image'] . " </div>";
                     echo "</div>";
                 }
             }
@@ -101,64 +102,32 @@ if (isset($_REQUEST['value'])) {
             </div>
         </form>
     </div>
+    <div class="player">
+  <audio controls class="song_audio" autoplay>
+    <source src="./static/audio/Rapitalove EP- Tay To - RPT MCK x RPT PhongKhin (Prod. by RPT PhongKhin) by Rapital.mp3" type="audio/mp3" />
+  </audio>
+  <div class="player-img"></div>
+  <div class="player-info">
+    <p>Tay To </p>
+    <i style="color: #ddd;">Vu</i>
+  </div>
+</div>
 </body>
+<script>
+    function playsong(e) {
+    var playerimage = document.getElementsByClassName('player-img')[0];
+    var playerinfo = document.getElementsByClassName('player-info')[0];
+    playerimage.style.backgroundImage = "url(" + e.children[3].textContent + ")";
+    playerinfo.children[0].textContent = e.children[0].textContent;
+    playerinfo.children[1].textContent = e.children[1].textContent;
+    var songaudio = document.getElementsByClassName('song_audio');
+    songaudio[0].children[0].src = e.children[2].textContent;
+    document.getElementsByClassName('song_audio')[0].load();
+  }
+
+
+</script>
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>
 <script src="./handleUser.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="handle-session-validate.js"></script>
-<script src="Notification.js"></script>
-<script>
-    // check is logged >>>
-    if (!sessionStorage.getItem('username')) {
-        window.location.replace('http://localhost/sound-source/client/index.php');
-    }
-    const notLoggedIn = "window.location = 'http://localhost/sound-source/client/login.php'";
-    loadUser("user", false);
-    // <<<
-
-    // >>> search for >>>
-    // <<<
-
-    // >>> modal >>>
-    const openModal = () => {
-        const modal = document.getElementById("modal");
-        modal.style.visibility = "visible";
-        modal.style.opacity = 1;
-    }
-    const closeModal = () => {
-        const modal = document.getElementById("modal");
-        modal.style.visibility = "hidden";
-        modal.style.opacity = 0;
-    }
-    // <<<
-    function ChangePageSearch(event) {
-        let input = document.getElementsByClassName('search_Song')[0];
-        // var song = document.getElementsByClassName('search_Song')[0];
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            window.location.replace('http://localhost/sound-source/client/search.php?value=' + input.value);
-        }
-    }
-    // >>> upload new uploadNewAvatar >>>
-    const input = document.getElementById("uploadNewAvatar");
-    input.onchange = (e) => {
-        const [file] = input['files'];
-        if (file) document.getElementById("avatar").src = URL.createObjectURL(file);
-    }
-    // <<<
-
-    // >>> check success >>>
-    let validate = getValidate('edit-user');
-    if (validate) {
-        notification('success', 'Update your profile successfully');
-        deleteValidate('edit-user');
-    }
-
-    if (validate === false) {
-        notification('error', 'Fail to update your profile, please try again!');
-        deleteValidate('edit-user');
-    }
-    // <<<
-</script>
-
 </html>

@@ -12,14 +12,25 @@
         while($row = mysqli_fetch_assoc($result)) {
             $_SESSION["username"]= $row['a_username'];
             $_SESSION["userId"] = $row['a_id'];
-            $_SESSION["validate-login"] = true;
-            header('Location: login.php');
+            echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('validate-login', true);
+                    setValidate('user', true);
+                    window.location.href = './login.php';
+                </script>
+                ";
             closeCon($conn);
             exit();
         }
         } else {
-            $_SESSION["validate-login"] = false;
-            header('Location: login.php');
+            echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                        setValidate('validate-login', false);
+                        window.location.href = './login.php';
+                </script>
+                ";
             closeCon($conn);
             exit();
         }

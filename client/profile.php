@@ -47,6 +47,7 @@
                 echo "<p>".$row['bio']."</p>";
                 echo "</div>";
             }
+            echo $_SESSION["userId"];
         ?>
             <button class="edit" onclick="openModal()">Edit profile</button>
         </div>

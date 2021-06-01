@@ -10,8 +10,13 @@
     $sqlCheckUsername = "select a_username from taikhoan where a_username = '".$username."'";
     $resultCheckUsername = mysqli_query($conn, $sqlCheckUsername);
     if(mysqli_num_rows($resultCheckUsername) === 0) {
-        $_SESSION['validate-forgot-pass'] = 'falseuser';
-        header('Location:forgot-pass.php');
+        echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('validate-forgot-pass', 'falseuser');
+                    window.location.href = './login.php';
+                </script>
+                ";
         exit();
     }
 
@@ -38,14 +43,26 @@
     if($question === $resultCheckQ && $answer === $resultCheckA){
         $newPassword = "UPDATE account SET a_password='$newPassword' WHERE a_username ='$username'";
         $resultInsert = mysqli_query($conn, $newPassword);
-        $_SESSION['validate-forgot-pass'] = true;
+        echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('validate-forgot-pass', true);
+                    window.location.href = './login.php';
+                </script>
+                ";
         header('Location:forgot-pass.php');
         exit();
 
         
     }
     else{
-        $_SESSION['validate-forgot-pass'] = false;
+        echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('validate-forgot-pass', false);
+                    window.location.href = './login.php';
+                </script>
+                ";
         header('Location:forgot-pass.php');
         exit();
     }

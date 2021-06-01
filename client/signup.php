@@ -28,20 +28,17 @@
     </div>
 </body>
 <script src="./Notification.js"></script>
+<script src='./handle-session-validate.js'></script>
 <script>
-    let validate = <?php session_start(); echo json_encode($_SESSION["validate-sign-up"], JSON_HEX_TAG); ?>;
-    if(validate === true) {
+     if(getValidate('validate-sign-up') === 'true'){
         notification('success',"Sign up success, please wait...");
         setTimeout(()=>{
-            window.location.replace('login.php');
-        }, 4000);
-    }
-    if(validate === false)
-        notification('error',"Username has existed, please try again");
-
-    <?php
-        $_SESSION["validate-sign-up"] = '';  
-    ?>
+          location.replace("./index.php");
+        },3500);
+      }
+      if(getValidate('validate-sign-up') === 'false')
+            notification('error',"Username has existed, please try again");
+      deleteValidate('validate-login');
 
     const checkConfirmPassword = () => {
         let password = document.getElementsByName('password')[0];

@@ -37,18 +37,17 @@
   </body>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script src="./Notification.js"></script>
+  <script src='./handle-session-validate.js'></script>
   <script>
-      let validate = <?php session_start(); echo json_encode($_SESSION["validate-login"], JSON_HEX_TAG); ?>;
-      if(validate === true){
+    // console.log(getValidate('validate-login') === 'true');
+      if(getValidate('validate-login') === 'true'){
         notification('success',"Sign in success, please wait...");
         setTimeout(()=>{
           location.replace("./index.php");
         },3500);
       }
-      if(validate === false)
+      if(getValidate('validate-login') === 'false')
         notification('error',"Your username or password is incorrect, please check and try again");
-      <?php
-        $_SESSION["validate-login"] = '';  
-      ?>
+      deleteValidate('validate-login');
   </script>
 </html>
