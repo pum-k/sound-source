@@ -156,9 +156,7 @@
       </div>
     </div>
   </div>
-
-</body>
-<div class="player">
+  <div class="player">
   <audio controls class="song_audio" autoplay>
     <source src="./static/audio/Rapitalove EP- Tay To - RPT MCK x RPT PhongKhin (Prod. by RPT PhongKhin) by Rapital.mp3" type="audio/mp3" />
   </audio>
@@ -168,6 +166,8 @@
     <i style="color: #ddd;">Vu</i>
   </div>
 </div>
+</body>
+
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
 </script>
 <script src="https://kit.fontawesome.com/3e954ec838.js" crossorigin="anonymous"></script>

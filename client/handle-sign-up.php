@@ -15,9 +15,21 @@
     if(mysqli_num_rows($resultCheckUsername) === 0) {
         $sql = "INSERT INTO account (a_username, a_password, a_question, a_answer) VALUES ('".$username."', '".$password."', '".$question."', '".$answer."')";
         $resultInsert = mysqli_query($conn, $sql);
-        $_SESSION['validate-sign-up'] = true;
+        echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('validate-sign-up', true);
+                    window.location.href = './signup.php';
+                </script>
+                ";
     } else {
-        $_SESSION['validate-sign-up'] = false;
+        echo "
+                <script src='./handle-session-validate.js'></script>
+                <script>
+                    setValidate('validate-sign-up', false);
+                    window.location.href = './signu.php';
+                </script>
+                ";
     }
     closeCon($conn);
 ?>

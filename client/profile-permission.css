@@ -73,9 +73,8 @@
 }
 
 .track {
-  /* display: flex; */
+  margin: 15px;
   text-align: center;
-  margin-top: 15px;
   transition: 0.3s;
 }
 
@@ -211,4 +210,47 @@ p {
 
 .modal-control > p {
   background-color: grey;
+}
+
+.play {
+  font-size: 40px;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+  right: 41%;
+  z-index: 1;
+  opacity: 0;
+  transition: 0.3s;
+  display: none;
+  pointer-events: none;
+}
+
+.player {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  background-color: #1b1b1b;
+  align-items: center;
+}
+
+.player > audio {
+  width: 800px;
+}
+
+.player-info {
+  color: white;
+  margin-left: 10px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.player-img {
+  background-image: url("https://i1.sndcdn.com/artworks-voe0CibrOPXN3rnt-2xSpZA-t200x200.jpg");
+  height: 30px;
+  width: 30px;
+  background-size: cover;
 }
