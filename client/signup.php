@@ -32,13 +32,16 @@
 <script>
      if(getValidate('validate-sign-up') === 'true'){
         notification('success',"Sign up success, please wait...");
+        deleteValidate('validate-sign-up');
         setTimeout(()=>{
-          location.replace("./index.php");
-        },3500);
+          location.replace("./login.php");
+        },1500);
       }
-      if(getValidate('validate-sign-up') === 'false')
-            notification('error',"Username has existed, please try again");
-      deleteValidate('validate-login');
+      if(getValidate('validate-sign-up') === 'false'){
+        notification('error',"Username has existed, please try again");
+        deleteValidate('validate-sign-up');
+      }
+            
 
     const checkConfirmPassword = () => {
         let password = document.getElementsByName('password')[0];

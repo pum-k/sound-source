@@ -86,7 +86,7 @@
     </div>
   </div>
   <div class="player">
-    <audio controls class="song_audio" autoplay>
+    <audio controls class="song_audio">
       <source src="./static/audio/Rapitalove EP- Tay To - RPT MCK x RPT PhongKhin (Prod. by RPT PhongKhin) by Rapital.mp3" type="audio/mp3" />
     </audio>
     <div class="player-img"></div>
